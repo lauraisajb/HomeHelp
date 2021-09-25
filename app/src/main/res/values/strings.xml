@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">HomeHelp</string>
+    <string name="SINGUP">SINGUP</string>
+    <string name="tvLogin">login Activity</string>
+</resources>
