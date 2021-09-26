@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="Oficio">
+        <item>Oficio</item>
+        <item>Carpintero</item>
+        <item>Fontanero</item>
+        <item>Electricista</item>
+        <item>Pintor</item>
+
+    </string-array>
+</resources>

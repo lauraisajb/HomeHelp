@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="Usuario">
+        <item>Tipo de Usuario</item>
+        <item>Cliente</item>
+        <item>Operador</item>
+    </string-array>
+</resources>
