@@ -35,6 +35,7 @@ import com.google.firebase.storage.UploadTask;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.lang.reflect.Array;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -79,9 +80,19 @@ public class SingUp extends AppCompatActivity implements View.OnClickListener{
     Uri uri;
 
 public class SingUp extends AppCompatActivity implements View.OnClickListener {
+    //FECHA
     ImageButton btnDate;
     EditText editTextDate;
     private  int dd, mm, yy;
+    //CIUDAD
+    Spinner comboCity;
+    //Usuario
+    Spinner comboUser;
+    //Oficio
+    Spinner comboOficio;
+    //descripcion
+    MultiAutoCompleteTextView descripcion;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -280,6 +291,7 @@ public class SingUp extends AppCompatActivity implements View.OnClickListener {
         });
     }
 
+    //FECHA
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
