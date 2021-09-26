@@ -78,6 +78,10 @@ public class SingUp extends AppCompatActivity implements View.OnClickListener{
 
     Uri uri;
 
+public class SingUp extends AppCompatActivity implements View.OnClickListener {
+    ImageButton btnDate;
+    EditText editTextDate;
+    private  int dd, mm, yy;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
