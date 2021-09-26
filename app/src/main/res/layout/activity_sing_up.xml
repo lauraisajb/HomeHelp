@@ -77,237 +77,237 @@
             app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
 
+        <ScrollView
+            android:id="@+id/scrollView2"
+            android:layout_width="384dp"
+            android:layout_height="451dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.481"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageUser">
 
-            <ScrollView
-                android:id="@+id/scrollView2"
-                android:layout_width="384dp"
-                android:layout_height="451dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.481"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageUser">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                <EditText
+                    android:id="@+id/editTextTextFirstName"
+                    android:layout_width="365dp"
+                    android:layout_height="61dp"
+                    android:layout_marginBottom="28dp"
+                    android:ems="15"
+                    android:hint="Ingrese su Nombre "
+                    android:inputType="textPersonName"
+                    android:textColor="#535353"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toTopOf="@+id/editTextTextSecondName"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
 
-                    <EditText
-                        android:id="@+id/editTextTextFirstName"
-                        android:layout_width="365dp"
-                        android:layout_height="61dp"
-                        android:layout_marginBottom="28dp"
-                        android:ems="15"
-                        android:hint="Ingrese su Nombre "
-                        android:inputType="textPersonName"
-                        android:textColor="#535353"
-                        android:textSize="18sp"
-                        app:layout_constraintBottom_toTopOf="@+id/editTextTextSecondName"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent" />
+                <EditText
+                    android:id="@+id/editTextTextSecondName"
+                    android:layout_width="365dp"
+                    android:layout_height="62dp"
+                    android:ems="15"
+                    android:hint="Ingrese su Apellido "
+                    android:inputType="textPersonName"
+                    android:textColor="#535353"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:layout_editor_absoluteY="358dp" />
 
-                    <EditText
-                        android:id="@+id/editTextTextSecondName"
-                        android:layout_width="365dp"
-                        android:layout_height="62dp"
-                        android:ems="15"
-                        android:hint="Ingrese su Apellido "
-                        android:inputType="textPersonName"
-                        android:textColor="#535353"
-                        android:textSize="18sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        tools:layout_editor_absoluteY="358dp" />
+                <EditText
+                    android:id="@+id/editTextTextTelefono"
+                    android:layout_width="365dp"
+                    android:layout_height="63dp"
+                    android:layout_marginTop="28dp"
+                    android:ems="15"
+                    android:hint="Ingrese su Telefono "
+                    android:inputType="number"
+                    android:textColor="#535353"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/editTextNumber" />
 
-                    <EditText
-                        android:id="@+id/editTextTextTelefono"
-                        android:layout_width="365dp"
-                        android:layout_height="63dp"
-                        android:layout_marginTop="28dp"
-                        android:ems="15"
-                        android:hint="Ingrese su Telefono "
-                        android:inputType="number"
-                        android:textColor="#535353"
-                        android:textSize="18sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/editTextNumber" />
+                <EditText
+                    android:id="@+id/editTextDate"
+                    android:layout_width="300dp"
+                    android:layout_height="63dp"
+                    android:layout_marginTop="28dp"
+                    android:ems="15"
+                    android:hint="Ingrese su Fecha de Nacimiento"
+                    android:inputType="textPersonName"
+                    android:textColor="#535353"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/editTextNumber" />
 
-                    <EditText
-                        android:id="@+id/editTextDate"
-                        android:layout_width="300dp"
-                        android:layout_height="63dp"
-                        android:layout_marginTop="28dp"
-                        android:ems="15"
-                        android:hint="Ingrese su Fecha de Nacimiento"
-                        android:inputType="textPersonName"
-                        android:textColor="#535353"
-                        android:textSize="18sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/editTextNumber" />
+                <ImageButton
+                    android:id="@+id/BtnDate"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="300dp"
+                    android:layout_marginTop="-60dp"
+                    android:stateListAnimator="@null"
+                    android:textColor="#535353"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/editTextNumber"
+                    app:srcCompat="@drawable/calendar" />
 
-                    <ImageButton
-                        android:id="@+id/BtnDate"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_marginLeft="300dp"
-                        android:layout_marginTop="-60dp"
-                        android:stateListAnimator="@null"
-                        android:textColor="#535353"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/editTextNumber"
-                        app:srcCompat="@drawable/calendar" />
+                <EditText
+                    android:id="@+id/editTextTextCC"
+                    android:layout_width="365dp"
+                    android:layout_height="63dp"
+                    android:layout_marginTop="28dp"
+                    android:ems="15"
+                    android:hint="Ingrese C.C "
+                    android:inputType="number"
+                    android:textColor="#535353"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/editTextNumber" />
 
-                    <EditText
-                        android:id="@+id/editTextTextCC"
-                        android:layout_width="365dp"
-                        android:layout_height="63dp"
-                        android:layout_marginTop="28dp"
-                        android:ems="15"
-                        android:hint="Ingrese C.C "
-                        android:inputType="number"
-                        android:textColor="#535353"
-                        android:textSize="18sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/editTextNumber" />
+                <EditText
+                    android:id="@+id/editTextTextEmailAddress2"
+                    android:layout_width="365dp"
+                    android:layout_height="63dp"
+                    android:layout_marginTop="28dp"
+                    android:ems="15"
+                    android:hint="Ingrese su Correo"
+                    android:inputType="textEmailAddress"
+                    android:textColor="#535353"
+                    android:textSize="18sp"
+                    tools:layout_editor_absoluteX="155dp"
+                    tools:layout_editor_absoluteY="177dp" />
 
-                    <EditText
-                        android:id="@+id/editTextTextEmailAddress2"
-                        android:layout_width="365dp"
-                        android:layout_height="63dp"
-                        android:layout_marginTop="28dp"
-                        android:ems="15"
-                        android:hint="Ingrese su Correo"
-                        android:inputType="textEmailAddress"
-                        android:textColor="#535353"
-                        android:textSize="18sp"
-                        tools:layout_editor_absoluteX="155dp"
-                        tools:layout_editor_absoluteY="177dp" />
+                <Spinner
+                    android:id="@+id/spinnerCiudad"
+                    android:layout_width="300dp"
+                    android:layout_height="63dp"
+                    android:layout_marginTop="28dp"
+                    android:ems="15"
+                    android:hint="Ciudad"
+                    android:textColor="#535353"
+                    android:textSize="18sp"
+                    tools:layout_editor_absoluteX="155dp"
+                    tools:layout_editor_absoluteY="177dp" />
 
-                    <Spinner
-                        android:id="@+id/spinnerCiudad"
-                        android:layout_width="300dp"
-                        android:layout_height="63dp"
-                        android:layout_marginTop="28dp"
-                        android:ems="15"
-                        android:hint="Ciudad"
-                        android:textColor="#535353"
-                        android:textSize="18sp"
-                        tools:layout_editor_absoluteX="155dp"
-                        tools:layout_editor_absoluteY="177dp" />
+                <EditText
+                    android:id="@+id/editTextTextDir"
+                    android:layout_width="365dp"
+                    android:layout_height="63dp"
+                    android:layout_marginTop="28dp"
+                    android:ems="15"
+                    android:hint="Ingrese su Dirección "
+                    android:inputType="textPersonName"
+                    android:textColor="#535353"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.456"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/editTextTextCC" />
 
-                    <EditText
-                        android:id="@+id/editTextTextDir"
-                        android:layout_width="365dp"
-                        android:layout_height="63dp"
-                        android:layout_marginTop="28dp"
-                        android:ems="15"
-                        android:hint="Ingrese su Dirección "
-                        android:inputType="textPersonName"
-                        android:textColor="#535353"
-                        android:textSize="18sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.456"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/editTextTextCC" />
+                <EditText
+                    android:id="@+id/editTextTextPassword"
+                    android:layout_width="365dp"
+                    android:layout_height="63dp"
+                    android:layout_marginTop="28dp"
+                    android:ems="15"
+                    android:hint="Ingrese su Contraseña "
+                    android:textColor="#535353"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.456"
+                    app:layout_constraintStart_toStartOf="parent" />
 
-                    <EditText
-                        android:id="@+id/editTextTextPassword"
-                        android:layout_width="365dp"
-                        android:layout_height="63dp"
-                        android:layout_marginTop="28dp"
-                        android:ems="15"
-                        android:hint="Ingrese su Contraseña "
-                        android:textColor="#535353"
-                        android:textSize="18sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.456"
-                        app:layout_constraintStart_toStartOf="parent" />
+                <EditText
+                    android:id="@+id/editTextTextConfirmPassword"
+                    android:layout_width="365dp"
+                    android:layout_height="63dp"
+                    android:layout_marginTop="28dp"
+                    android:ems="15"
+                    android:hint="Confirme su Contraseña "
+                    android:textColor="#535353"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.456"
+                    app:layout_constraintStart_toStartOf="parent" />
 
-                    <EditText
-                        android:id="@+id/editTextTextConfirmPassword"
-                        android:layout_width="365dp"
-                        android:layout_height="63dp"
-                        android:layout_marginTop="28dp"
-                        android:ems="15"
-                        android:hint="Confirme su Contraseña "
-                        android:textColor="#535353"
-                        android:textSize="18sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.456"
-                        app:layout_constraintStart_toStartOf="parent" />
+                <Spinner
+                    android:id="@+id/spinnerUser"
+                    android:layout_width="300dp"
+                    android:layout_height="63dp"
+                    android:layout_marginTop="28dp"
+                    android:ems="15"
+                    android:hint="Usuario"
+                    android:textColor="#535353"
+                    android:textSize="18sp"
+                    tools:layout_editor_absoluteX="155dp"
+                    tools:layout_editor_absoluteY="177dp" />
 
-                    <Spinner
-                        android:id="@+id/spinnerUser"
-                        android:layout_width="300dp"
-                        android:layout_height="63dp"
-                        android:layout_marginTop="28dp"
-                        android:ems="15"
-                        android:hint="Usuario"
-                        android:textColor="#535353"
-                        android:textSize="18sp"
-                        tools:layout_editor_absoluteX="155dp"
-                        tools:layout_editor_absoluteY="177dp" />
-
-                    <Spinner
-                        android:id="@+id/spinnerOficio"
-                        android:layout_width="300dp"
-                        android:layout_height="63dp"
-                        android:layout_marginTop="28dp"
-                        android:ems="15"
-                        android:hint="Oficio"
-                        android:textColor="#535353"
-                        android:textSize="18sp"
-                        android:visibility="gone"
-                        tools:layout_editor_absoluteX="155dp"
-                        tools:layout_editor_absoluteY="177dp" />
+                <Spinner
+                    android:id="@+id/spinnerOficio"
+                    android:layout_width="300dp"
+                    android:layout_height="63dp"
+                    android:layout_marginTop="28dp"
+                    android:ems="15"
+                    android:hint="Oficio"
+                    android:textColor="#535353"
+                    android:textSize="18sp"
+                    android:visibility="gone"
+                    tools:layout_editor_absoluteX="155dp"
+                    tools:layout_editor_absoluteY="177dp" />
 
 
-                    <MultiAutoCompleteTextView
-                        android:id="@+id/editDescripcion"
-                        android:layout_width="365dp"
-                        android:layout_height="120dp"
-                        android:layout_marginTop="28dp"
-                        android:ems="10"
-                        android:hint="Descripción... "
-                        android:textColor="#535353"
-                        android:textSize="18sp"
-                        android:visibility="gone"
-                        app:layout_constraintTop_toBottomOf="@+id/editTextTextSecondName"
-                        tools:layout_editor_absoluteX="21dp" />
+                <MultiAutoCompleteTextView
+                    android:id="@+id/editDescripcion"
+                    android:layout_width="365dp"
+                    android:layout_height="120dp"
+                    android:layout_marginTop="28dp"
+                    android:ems="10"
+                    android:hint="Descripción... "
+                    android:textColor="#535353"
+                    android:textSize="18sp"
+                    android:visibility="gone"
+                    app:layout_constraintTop_toBottomOf="@+id/editTextTextSecondName"
+                    tools:layout_editor_absoluteX="21dp" />
 
-                    <Button
-                        android:id="@+id/buttonCancel"
-                        android:layout_width="120dp"
-                        android:layout_height="50dp"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginTop="28dp"
-                        android:background="#EF0505"
-                        android:text="Cancelar"
-                        android:textColor="#FFFFFF"
-                        tools:layout_editor_absoluteX="155dp"
-                        tools:layout_editor_absoluteY="163dp" />
+                <Button
+                    android:id="@+id/buttonCancel"
+                    android:layout_width="120dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="28dp"
+                    android:background="#EF0505"
+                    android:text="Cancelar"
+                    android:textColor="#FFFFFF"
+                    tools:layout_editor_absoluteX="155dp"
+                    tools:layout_editor_absoluteY="163dp" />
 
-                    <Button
-                        android:id="@+id/buttonRegister"
-                        android:layout_width="120dp"
-                        android:layout_height="50dp"
-                        android:layout_marginLeft="250dp"
-                        android:layout_marginTop="-50dp"
-                        android:background="#2EBDF9"
-                        android:text="Registrar"
-                        android:textColor="#FFFFFF"
-                        tools:layout_editor_absoluteX="155dp"
-                        tools:layout_editor_absoluteY="163dp" />
+                <Button
+                    android:id="@+id/buttonRegister"
+                    android:layout_width="120dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="250dp"
+                    android:layout_marginTop="-50dp"
+                    android:background="#2EBDF9"
+                    android:text="Registrar"
+                    android:textColor="#FFFFFF"
+                    tools:layout_editor_absoluteX="155dp"
+                    tools:layout_editor_absoluteY="163dp" />
 
-                </LinearLayout>
+            </LinearLayout>
 
-            </ScrollView>
-
+        </ScrollView>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
