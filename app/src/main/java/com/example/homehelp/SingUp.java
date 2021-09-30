@@ -1,9 +1,12 @@
 package com.example.homehelp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,9 +17,14 @@ import android.widget.ImageButton;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.sql.Struct;
 import java.util.Calendar;
 
 public class SingUp extends AppCompatActivity implements View.OnClickListener {
@@ -34,11 +42,11 @@ public class SingUp extends AppCompatActivity implements View.OnClickListener {
     MultiAutoCompleteTextView descripcion;
 
     //datos de usuario
-    EditText Username, fName, lName, phone, date, CC, mEmail, mPassword, mPasswordComfirm;
-    MultiAutoCompleteTextView  userDescripcion;
+    EditText mUsername, mfName, mlName, mPhone,  mDate, mCC, mEmail, mPassword, mPasswordComfirm;
+    MultiAutoCompleteTextView  mUserDescripcion;
     String userType, city, oficio;
 
-    Button btnRegister, btnBback;
+    Button btnRegistrar, btnBback;
     //fireBase
     FirebaseAuth fAuth;
     ProgressBar progressBar;
@@ -99,30 +107,117 @@ public class SingUp extends AppCompatActivity implements View.OnClickListener {
         });
 
         //obtener datos de usuario
-        Username = findViewById(R.id.UserName);
-        fName = findViewById(R.id.fName);
-        lName = findViewById(R.id.lName);
-        phone = findViewById(R.id.phone);
-        date = findViewById(R.id.date);
-        CC = findViewById(R.id.CC);
+        mUsername = findViewById(R.id.UserName);
+        mfName = findViewById(R.id.fName);
+        mlName = findViewById(R.id.lName);
+        mPhone = findViewById(R.id.phone);
+        mCC = findViewById(R.id.CC);
         mEmail = findViewById(R.id.email);
         mPassword = findViewById(R.id.Password);
         mPasswordComfirm = findViewById(R.id.comfirmPassword);
-        userDescripcion = findViewById(R.id.editDescripcion);
+        mUserDescripcion = findViewById(R.id.editDescripcion);
+
         userType = comboUser.getSelectedItem().toString();;
         city = comboCity.getSelectedItem().toString();
         oficio = comboOficio.getSelectedItem().toString();
 
+        //botones
+        btnRegistrar = findViewById(R.id.btnRegistrar);
+        btnBback = findViewById(R.id.btnBack);
         fAuth = FirebaseAuth.getInstance();
         progressBar = findViewById(R.id.progressBar);
 
-        btnRegister.setOnClickListener(new View.OnClickListener() {
+
+        if(fAuth.getCurrentUser() != null){
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            finish();
+        }
+
+        btnRegistrar.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
+                String Username = mUsername.getText().toString().trim();
+                String fName = mfName.getText().toString().trim();
+                String lName = mlName.getText().toString().trim();
+                String phone = mPhone.getText().toString().trim();
+                String CC = mCC.getText().toString().trim();
                 String email = mEmail.getText().toString().trim();
                 String password = mPassword.getText().toString().trim();
+                String passwordComfirm = mPasswordComfirm.getText().toString().trim();
+                String userDescription = mUserDescripcion.getText().toString().trim();
+                mDate = editTextDate;
+                //validaciones iniciales
 
-                
+                if(TextUtils.isEmpty(Username)){
+                    mUsername.setError("¡Nombre de Usuario Requerido!");
+                    return;
+                }
+                if(TextUtils.isEmpty(fName)){
+                    mfName.setError("¡Primer Nombre Requerido!");
+                    return;
+                }
+                if(TextUtils.isEmpty(lName)){
+                    mlName.setError("¡Primer Apellido Requerido!");
+                    return;
+                }
+                if(TextUtils.isEmpty(phone)){
+                    mPhone.setError("¡Telefono Requerido!");
+                    return;
+                }
+                if(TextUtils.isEmpty(CC)){
+                    mCC.setError("¡C.C Requerida!");
+                    return;
+                }
+                if(TextUtils.isEmpty(userDescription)){
+                    mUserDescripcion.setError("¡Descripción Requerida!");
+                    return;
+                }
+
+                if(TextUtils.isEmpty(email)){
+                    mEmail.setError("¡Correo Requerido!");
+                    return;
+                }
+                if(TextUtils.isEmpty(password)){
+                    mPassword.setError("¡Contraseña Requerida!");
+                    return;
+                }
+                if(TextUtils.isEmpty(passwordComfirm)){
+                    mPassword.setError("¡Comfirmación de Contraseña Requerida!");
+                    return;
+                }
+
+                if (!passwordComfirm.equals(passwordComfirm)){
+                    mPasswordComfirm.setError("¡LAS CONSTRASEÑAS NO COINCIDEN!");
+                    return;
+                }
+
+                if(password.length() < 8){
+                    mPassword.setError("¡Contraseña debe contar con almenos 8 caracteres!");
+                    return;
+                }
+
+                if (TextUtils.isEmpty(mDate.toString())){
+                    ///debemos averiguar que sea mayor de edad
+                    editTextDate.setError("¡Fecha Requerida!");
+                    return;
+                }
+
+                progressBar.setVisibility(View.VISIBLE);
+
+                //registrando usuario en la DB firebase
+                fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull  Task<AuthResult> task) {
+                        if(task.isSuccessful()){
+                            Toast.makeText(SingUp.this, "Usuario Registrado", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        }else{
+                            Toast.makeText(SingUp.this, "Error "+ task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
             }
         });
 
