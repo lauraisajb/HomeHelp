@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1004150052575",
+    "project_id": "homehelp-fed2b",
+    "storage_bucket": "homehelp-fed2b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1004150052575:android:7198cc2ad95fe1da247b6a",
+        "android_client_info": {
+          "package_name": "com.example.homehelp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1004150052575-7hv29ca8klj8kr5krrcqe17ge6lpbht6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwaZafNV1FOL88BMXZDpzKQcm2K4UKing"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1004150052575-7hv29ca8klj8kr5krrcqe17ge6lpbht6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

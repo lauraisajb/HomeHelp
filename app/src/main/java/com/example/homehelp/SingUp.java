@@ -12,10 +12,11 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.MultiAutoCompleteTextView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
-import android.widget.TextView;
 
-import java.lang.reflect.Array;
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.Calendar;
 
 public class SingUp extends AppCompatActivity implements View.OnClickListener {
@@ -32,6 +33,16 @@ public class SingUp extends AppCompatActivity implements View.OnClickListener {
     //descripcion
     MultiAutoCompleteTextView descripcion;
 
+    //datos de usuario
+    EditText Username, fName, lName, phone, date, CC, mEmail, mPassword, mPasswordComfirm;
+    MultiAutoCompleteTextView  userDescripcion;
+    String userType, city, oficio;
+
+    Button btnRegister, btnBback;
+    //fireBase
+    FirebaseAuth fAuth;
+    ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +50,7 @@ public class SingUp extends AppCompatActivity implements View.OnClickListener {
 
         //FECHA
         btnDate = (ImageButton)findViewById(R.id.BtnDate);
-        editTextDate = (EditText)findViewById(R.id.editTextDate);
+        editTextDate = (EditText)findViewById(R.id.date);
         btnDate.setOnClickListener(this);
 
         //CIUDAD
@@ -84,6 +95,34 @@ public class SingUp extends AppCompatActivity implements View.OnClickListener {
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
                 //  tu código
+            }
+        });
+
+        //obtener datos de usuario
+        Username = findViewById(R.id.UserName);
+        fName = findViewById(R.id.fName);
+        lName = findViewById(R.id.lName);
+        phone = findViewById(R.id.phone);
+        date = findViewById(R.id.date);
+        CC = findViewById(R.id.CC);
+        mEmail = findViewById(R.id.email);
+        mPassword = findViewById(R.id.Password);
+        mPasswordComfirm = findViewById(R.id.comfirmPassword);
+        userDescripcion = findViewById(R.id.editDescripcion);
+        userType = comboUser.getSelectedItem().toString();;
+        city = comboCity.getSelectedItem().toString();
+        oficio = comboOficio.getSelectedItem().toString();
+
+        fAuth = FirebaseAuth.getInstance();
+        progressBar = findViewById(R.id.progressBar);
+
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String email = mEmail.getText().toString().trim();
+                String password = mPassword.getText().toString().trim();
+
+                
             }
         });
 
