@@ -43,15 +43,18 @@ public class activity_view_worker extends AppCompatActivity {
         eCity = (TextView) findViewById(R.id.textCity);
         eDescripcion = (TextView) findViewById(R.id.textDescripcion);
 
+
+        getInfo();
+
+        /*
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 auth.signOut();
                 startActivity(new Intent( activity_view_worker.this, MainActivity.class));
-                finish();
             }
         });
-        getInfo();
+        */
     }
 
     private void getInfo(){

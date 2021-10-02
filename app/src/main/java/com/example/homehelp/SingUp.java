@@ -141,6 +141,10 @@ public class SingUp extends AppCompatActivity implements View.OnClickListener {
                 dir = eDir.getText().toString();
                 phone = ePhone.getText().toString();
                 descripc = descrip.getText().toString();
+                //combodatos
+                userType = comboUser.getSelectedItem().toString();
+                city = comboCity.getSelectedItem().toString();
+                ofice = comboOficio.getSelectedItem().toString();
 
                 //Validar datos
 
@@ -181,12 +185,28 @@ public class SingUp extends AppCompatActivity implements View.OnClickListener {
                     Toast.makeText(SingUp.this, "Debe ingresar su telefono", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(comboUser.equals("Operador")){
-                    if(ofice.isEmpty()){
+                if(userType.equals("Tipo de Usuario")) {
+                    Toast.makeText(SingUp.this, "Elija el tipo de Usuario", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if(userType.equals("Operador")){
+                    if(ofice.equals("Oficio")){
+                        Toast.makeText(SingUp.this, "Debe elegir un oficio", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    if(descripc.isEmpty()){
                         Toast.makeText(SingUp.this, "Debe ingresar la descripcion", Toast.LENGTH_SHORT).show();
                         return;
                     }
                 }
+
+                if(city.equals("Ciudad")){
+                    Toast.makeText(SingUp.this, "Debe elegir una ciudad", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
 
                 registerUser();
 
@@ -201,9 +221,7 @@ public class SingUp extends AppCompatActivity implements View.OnClickListener {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if( task.isSuccessful()){
 
-                    userType = comboUser.getSelectedItem().toString();
-                    city = comboCity.getSelectedItem().toString();
-                    ofice = comboOficio.getSelectedItem().toString();
+
                    // fechNac = (Date) editTextDate.getText();
 
 
@@ -230,7 +248,14 @@ public class SingUp extends AppCompatActivity implements View.OnClickListener {
                             if(task2.isSuccessful()){
                                 Toast.makeText(SingUp.this, "registro exitoso", Toast.LENGTH_SHORT).show();
                                 System.out.println(map);
-                                startActivity(new Intent(SingUp.this, activity_view_customer.class));
+                                if(userType.equals("Operador")){
+                                    startActivity(new Intent(SingUp.this, activity_view_worker.class));
+                                }
+                                if(userType.equals("Cliente")) {
+                                    startActivity(new Intent(SingUp.this, activity_view_customer.class));
+                                }
+
+
                             }else{
                                 Toast.makeText(SingUp.this, "No se pudo completar el registro", Toast.LENGTH_SHORT).show();
                             }

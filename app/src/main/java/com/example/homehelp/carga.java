@@ -5,9 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageButton;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -16,47 +14,20 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class activity_view_customer extends AppCompatActivity {
-    //botones
-    private ImageButton btnClose;
+public class carga extends AppCompatActivity {
 
     //FireBase
     private FirebaseAuth auth;
     private DatabaseReference DB;
-    //textView
-    private  TextView eUserName, eCity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_customer);
+        setContentView(R.layout.activity_carga);
 
-
-        //botones
-        btnClose = (ImageButton) findViewById(R.id.btnClose);
-        //firebase
         auth = FirebaseAuth.getInstance();
         DB = FirebaseDatabase.getInstance().getReference();
-        //button
-        btnClose = (ImageButton) findViewById(R.id.btnBack);
-        //textView
-        eUserName = (TextView) findViewById(R.id.textUserName);
-        eCity = (TextView) findViewById(R.id.textCityb);
-
-
         getInfo();
-
-        /*
-        btnClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                auth.signOut();
-                startActivity(new Intent(activity_view_customer.this, MainActivity.class));
-                finish();
-            }
-        }) ;
-        */
-
     }
 
     private void getInfo(){
@@ -65,11 +36,18 @@ public class activity_view_customer extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
-                    String userName = snapshot.child("userName").getValue().toString();
-                    String city = snapshot.child("Ciudad").getValue().toString();
+                    String tipo = snapshot.child("Tipo").getValue().toString();
 
-                    eUserName.setText(userName);
-                    eCity.setText(city);
+                    if(tipo.equals("Cliente")){
+                        Toast.makeText(carga.this, "Iniciando sesión de Cliente", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(carga.this, activity_view_customer.class));
+                        finish();
+                    }else {
+                        Toast.makeText(carga.this, "Iniciando sesión de Operador\"", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(carga.this, activity_view_worker.class));
+                        finish();
+                    }
+
                 }
             }
 
