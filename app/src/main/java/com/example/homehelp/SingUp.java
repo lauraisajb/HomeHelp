@@ -230,7 +230,7 @@ public class SingUp extends AppCompatActivity implements View.OnClickListener {
                             if(task2.isSuccessful()){
                                 Toast.makeText(SingUp.this, "registro exitoso", Toast.LENGTH_SHORT).show();
                                 System.out.println(map);
-                                startActivity(new Intent(SingUp.this, MainActivity.class));
+                                startActivity(new Intent(SingUp.this, activity_view_customer.class));
                             }else{
                                 Toast.makeText(SingUp.this, "No se pudo completar el registro", Toast.LENGTH_SHORT).show();
                             }
@@ -257,7 +257,7 @@ public class SingUp extends AppCompatActivity implements View.OnClickListener {
             DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                    year+=998;
+
                     editTextDate.setText(dayOfMonth+"/"+(month)+1 +"/"+year);
                 }
             }

@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".activity_view_customer"></activity>
+        <activity android:name=".activity_view_worker"></activity>
+        <activity android:name=".activity_view_customer" />
         <!--
         para que no se muevan las cosas por el teclado :
         android:windowSoftInputMode="adjustPan|adjustResize"
