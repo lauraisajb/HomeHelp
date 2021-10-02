@@ -29,7 +29,7 @@
         app:srcCompat="@drawable/user" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/textName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
@@ -46,7 +46,7 @@
         app:layout_constraintTop_toTopOf="@+id/imageView20" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/textJob"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
@@ -59,10 +59,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView5" />
+        app:layout_constraintTop_toTopOf="@+id/textName" />
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/textCity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
@@ -75,7 +75,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView6" />
+        app:layout_constraintTop_toTopOf="@+id/textJob" />
 
     <TextView
         android:id="@+id/textView8"
@@ -110,7 +110,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView10"
+        android:id="@+id/textDescripcion"
         android:layout_width="370dp"
         android:layout_height="57dp"
         android:layout_marginStart="30dp"
@@ -122,7 +122,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.263"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView7" />
+        app:layout_constraintTop_toTopOf="@+id/textCity" />
 
     <ImageView
         android:id="@+id/imageView21"
@@ -159,7 +159,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.297"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView7"
+        app:layout_constraintTop_toTopOf="@+id/textCity"
         app:srcCompat="@drawable/starllena" />
 
     <ImageView
@@ -170,7 +170,7 @@
         android:layout_marginLeft="40dp"
         android:layout_marginTop="44dp"
         app:layout_constraintStart_toStartOf="@+id/imageView24"
-        app:layout_constraintTop_toTopOf="@+id/textView7"
+        app:layout_constraintTop_toTopOf="@+id/textCity"
         app:srcCompat="@drawable/starllena" />
 
     <ImageView
@@ -181,7 +181,7 @@
         android:layout_marginLeft="40dp"
         android:layout_marginTop="44dp"
         app:layout_constraintStart_toStartOf="@+id/imageView25"
-        app:layout_constraintTop_toTopOf="@+id/textView7"
+        app:layout_constraintTop_toTopOf="@+id/textCity"
         app:srcCompat="@drawable/starllena" />
 
     <ImageView
@@ -192,7 +192,7 @@
         android:layout_marginLeft="40dp"
         android:layout_marginTop="44dp"
         app:layout_constraintStart_toStartOf="@+id/imageView26"
-        app:layout_constraintTop_toTopOf="@+id/textView7"
+        app:layout_constraintTop_toTopOf="@+id/textCity"
         app:srcCompat="@drawable/starllena" />
 
     <ImageView
@@ -203,7 +203,7 @@
         android:layout_marginLeft="40dp"
         android:layout_marginTop="44dp"
         app:layout_constraintStart_toStartOf="@+id/imageView27"
-        app:layout_constraintTop_toTopOf="@+id/textView7"
+        app:layout_constraintTop_toTopOf="@+id/textCity"
         app:srcCompat="@drawable/starvacia" />
 
     <ImageButton
@@ -217,4 +217,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.181" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
