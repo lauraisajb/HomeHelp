@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
 
     //SINGUP
     public void singUp(View view){
-        Intent singUp = new Intent(this, SingUp.class);
+        Intent singUp = new Intent(this, Search_activity.class);
         startActivity(singUp);
     }
 }
