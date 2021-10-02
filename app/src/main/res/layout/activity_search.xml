@@ -188,7 +188,7 @@
         tools:ignore="MissingConstraints" />
 
     <ImageButton
-        android:id="@+id/btnBack"
+        android:id="@+id/btnCloseW"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/leftarrow"

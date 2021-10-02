@@ -36,7 +36,7 @@ public class activity_view_worker extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         DB = FirebaseDatabase.getInstance().getReference();
         //button
-        btnClose = (ImageButton) findViewById(R.id.btnBack);
+        btnClose = (ImageButton) findViewById(R.id.btnCloseW);
         //textView
         eUserName = (TextView) findViewById(R.id.textName);
         eJob = (TextView) findViewById(R.id.textJob);
@@ -46,17 +46,15 @@ public class activity_view_worker extends AppCompatActivity {
 
         getInfo();
 
-
-
-        /*
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 auth.signOut();
-                startActivity(new Intent( activity_view_worker.this, MainActivity.class));
+                startActivity(new Intent(activity_view_worker.this, MainActivity.class));
             }
         });
-        */
+
+
     }
 
     private void getInfo(){

@@ -32,13 +32,12 @@ public class activity_view_customer extends AppCompatActivity {
         setContentView(R.layout.activity_view_customer);
 
 
-        //botones
-        btnClose = (ImageButton) findViewById(R.id.btnClose);
+
         //firebase
         auth = FirebaseAuth.getInstance();
         DB = FirebaseDatabase.getInstance().getReference();
         //button
-        btnClose = (ImageButton) findViewById(R.id.btnBack);
+        btnClose = (ImageButton) findViewById(R.id.btnCloseC);
         btnSearch = (ImageButton) findViewById(R.id.btnSearch);
         //textView
         eUserName = (TextView) findViewById(R.id.textUserName);
@@ -52,7 +51,7 @@ public class activity_view_customer extends AppCompatActivity {
             }
         });
 
-        /*
+
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,7 +59,7 @@ public class activity_view_customer extends AppCompatActivity {
                 startActivity(new Intent(activity_view_customer.this, MainActivity.class));
                 finish();
             }
-        }) ;*/
+        });
 
         getInfo();
     }

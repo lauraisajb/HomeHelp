@@ -160,7 +160,7 @@
         app:srcCompat="@drawable/mail" />
 
     <ImageButton
-        android:id="@+id/btnClose"
+        android:id="@+id/btnCloseC"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/leftarrow"

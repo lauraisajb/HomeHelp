@@ -27,7 +27,7 @@ public class Search_activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        btnBack = (ImageButton) findViewById(R.id.btnBack);
+        btnBack = (ImageButton) findViewById(R.id.btnCloseW);
 
         //CIUDAD
         comboCity2 = (Spinner) findViewById(R.id.spinnerCiudad2);

@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private Button eLogin;
     private String email = "";
     private String password = "";
-    private String tipo;
+    private String tipo="";
 
     //firebase
     private FirebaseAuth auth;
@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
                 password = ePassword.getText().toString();
 
                 if (!email.isEmpty() && !password.isEmpty()) {
-                    getInfo();
+                    login();
                 } else {
                     if (email.isEmpty()) {
                         Toast.makeText(MainActivity.this, "Ingrese su correo", Toast.LENGTH_SHORT).show();
@@ -66,13 +66,28 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void loginCliente() {
+    public void login() {
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
+
             public void onComplete(@NonNull Task<AuthResult> task) {
+
+                System.out.println("------------------------"+tipo);
                 if (task.isSuccessful()) {
-                    startActivity(new Intent(MainActivity.this, activity_view_customer.class));
-                    finish();
+                    getInfo();
+                    System.out.println("------------------"+tipo);
+                    if(tipo.equals("Cliente")){
+
+                        Toast.makeText(MainActivity.this, "Iniciando sesión de Cliente", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(MainActivity.this, activity_view_customer.class));
+                        finish();
+                    }
+
+                    if(tipo.equals("Operador")){
+                        Toast.makeText(MainActivity.this, "Iniciando sesión de Operador", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(MainActivity.this, activity_view_worker.class));
+                        finish();
+                    }
 
                 } else {
                     Toast.makeText(MainActivity.this, "No se pudo iniciar sesión. Compruebe los datos ingresados", Toast.LENGTH_SHORT).show();
@@ -83,7 +98,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void loginUOperador() {
+    /*
+     public void loginUOperador() {
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -99,22 +115,23 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+     */
     private void getInfo(){
         String id = auth.getCurrentUser().getUid();
         DB.child("Users").child(id).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                System.out.println("------------------"+tipo);
                 if(snapshot.exists()){
-                    String tipo = snapshot.child("Tipo").getValue().toString();
-
-                    if(tipo.equals("Cliente")){
+                    tipo = snapshot.child("Tipo").getValue().toString();
+                    System.out.println("------------------"+tipo);
+                    /*if(tipo.equals("Cliente")){
                         loginCliente();
                         Toast.makeText(MainActivity.this, "Iniciando sesión de Cliente", Toast.LENGTH_SHORT).show();
                     }else {
                         loginUOperador();
                         Toast.makeText(MainActivity.this, "Iniciando sesión de Operador", Toast.LENGTH_SHORT).show();
-                    }
-
+                    }*/
                 }
             }
 

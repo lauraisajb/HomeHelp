@@ -207,7 +207,7 @@
         app:srcCompat="@drawable/starvacia" />
 
     <ImageButton
-        android:id="@+id/btnBack"
+        android:id="@+id/btnCloseW"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/leftarrow"

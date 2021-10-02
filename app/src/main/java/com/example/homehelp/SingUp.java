@@ -51,6 +51,7 @@ public class SingUp extends AppCompatActivity implements View.OnClickListener {
     String userName, fName, lName, email, dir, password, comfPass, phone, descripc, userType, city, ofice;
     Date fechNac, fechCrea;
 
+    //botones
     Button btnRegister, btnBack;
 
     //coneccion
@@ -124,8 +125,17 @@ public class SingUp extends AppCompatActivity implements View.OnClickListener {
         eComfPass = (EditText) findViewById(R.id.eConfirmPassword);
         ePhone = (EditText) findViewById(R.id.ePhono);
         descrip = (EditText) findViewById(R.id.editDescripcion);
+        //botones
         btnRegister = (Button) findViewById(R.id.btnRegister);
         btnBack = (Button) findViewById(R.id.btnCancel);
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SingUp.this, MainActivity.class));
+                finish();
+            }
+        });
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
