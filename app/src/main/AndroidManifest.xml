@@ -9,12 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <!--para que no se muevan las cosas por el teclado :
+        <activity android:name=".activity_view_customer"></activity>
+        <!--
+        para que no se muevan las cosas por el teclado :
         android:windowSoftInputMode="adjustPan|adjustResize"
         -->
-        <activity android:name=".SingUp"
-            android:windowSoftInputMode="adjustPan"
-            ></activity>""
+        <activity
+            android:name=".SingUp"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,7 +24,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>
