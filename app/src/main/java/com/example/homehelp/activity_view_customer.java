@@ -18,7 +18,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class activity_view_customer extends AppCompatActivity {
     //botones
-    private ImageButton btnClose;
+    private ImageButton btnClose, btnSearch;
 
     //FireBase
     private FirebaseAuth auth;
@@ -39,12 +39,18 @@ public class activity_view_customer extends AppCompatActivity {
         DB = FirebaseDatabase.getInstance().getReference();
         //button
         btnClose = (ImageButton) findViewById(R.id.btnBack);
+        btnSearch = (ImageButton) findViewById(R.id.btnSearch);
         //textView
         eUserName = (TextView) findViewById(R.id.textUserName);
         eCity = (TextView) findViewById(R.id.textCityb);
 
 
-        getInfo();
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent( activity_view_customer.this, Search_activity.class));
+            }
+        });
 
         /*
         btnClose.setOnClickListener(new View.OnClickListener() {
@@ -54,9 +60,9 @@ public class activity_view_customer extends AppCompatActivity {
                 startActivity(new Intent(activity_view_customer.this, MainActivity.class));
                 finish();
             }
-        }) ;
-        */
+        }) ;*/
 
+        getInfo();
     }
 
     private void getInfo(){

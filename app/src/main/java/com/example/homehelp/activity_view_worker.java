@@ -46,6 +46,8 @@ public class activity_view_worker extends AppCompatActivity {
 
         getInfo();
 
+
+
         /*
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override

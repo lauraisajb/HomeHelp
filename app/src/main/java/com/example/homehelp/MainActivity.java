@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
                 password = ePassword.getText().toString();
 
                 if (!email.isEmpty() && !password.isEmpty()) {
-                    loginUser();
+                    getInfo();
                 } else {
                     if (email.isEmpty()) {
                         Toast.makeText(MainActivity.this, "Ingrese su correo", Toast.LENGTH_SHORT).show();
@@ -66,13 +66,30 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public void loginUser() {
+    public void loginCliente() {
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    getInfo();
+                    startActivity(new Intent(MainActivity.this, activity_view_customer.class));
+                    finish();
 
+                } else {
+                    Toast.makeText(MainActivity.this, "No se pudo iniciar sesión. Compruebe los datos ingresados", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
+    }
+
+    public void loginUOperador() {
+        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    startActivity(new Intent(MainActivity.this, activity_view_worker.class));
+                    finish();
                 } else {
                     Toast.makeText(MainActivity.this, "No se pudo iniciar sesión. Compruebe los datos ingresados", Toast.LENGTH_SHORT).show();
                 }
@@ -91,13 +108,11 @@ public class MainActivity extends AppCompatActivity {
                     String tipo = snapshot.child("Tipo").getValue().toString();
 
                     if(tipo.equals("Cliente")){
+                        loginCliente();
                         Toast.makeText(MainActivity.this, "Iniciando sesión de Cliente", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(MainActivity.this, activity_view_customer.class));
-                        finish();
                     }else {
-                        Toast.makeText(MainActivity.this, "Iniciando sesión de Operador\"", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(MainActivity.this, activity_view_worker.class));
-                        finish();
+                        loginUOperador();
+                        Toast.makeText(MainActivity.this, "Iniciando sesión de Operador", Toast.LENGTH_SHORT).show();
                     }
 
                 }
