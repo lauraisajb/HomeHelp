@@ -165,9 +165,11 @@
         android:layout_height="wrap_content"
         android:src="@drawable/leftarrow"
         app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+        app:layout_constraintEnd_toStartOf="@+id/btnSearch"
+        app:layout_constraintHorizontal_bias="0.091"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.04" />
+        app:layout_constraintVertical_bias="0.027" />
 
     <ImageButton
         android:id="@+id/btnSearch"

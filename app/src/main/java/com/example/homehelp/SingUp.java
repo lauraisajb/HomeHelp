@@ -1,6 +1,7 @@
 package com.example.homehelp;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
@@ -8,8 +9,10 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -19,17 +22,26 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -54,7 +66,7 @@ public class SingUp extends AppCompatActivity implements View.OnClickListener {
     EditText eUserName,eFname, eLname, eEmail, eDir, ePassword, eComfPass, ePhone, descrip;
 
     //variables de usuario
-    String userName, fName, lName, email, dir, password, comfPass, phone, descripc, userType, city, ofice;
+    String userName, fName, lName, email, dir, password, comfPass, phone, descripc, userType, city, ofice, imagen;
     Date fechNac, fechCrea;
 
     //botones
@@ -64,6 +76,14 @@ public class SingUp extends AppCompatActivity implements View.OnClickListener {
     //coneccion
     FirebaseAuth auth;
     DatabaseReference database;
+    StorageReference storageReference;
+
+    //fotos
+    Dialog subirFoto;
+    ImageView imgFotoPerfil;
+    final  int CODIGO_RESPUESTA_GALERIA=3;
+
+    Uri uri;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +92,7 @@ public class SingUp extends AppCompatActivity implements View.OnClickListener {
         //coneccion
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance().getReference();
+        storageReference = FirebaseStorage.getInstance().getReference();
         //FECHA
         btnDate = (ImageButton)findViewById(R.id.BtnDate);
         editTextDate = (EditText)findViewById(R.id.eDate);
@@ -231,6 +252,7 @@ public class SingUp extends AppCompatActivity implements View.OnClickListener {
             }
         });
 
+        /*
         btnImgUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -238,22 +260,102 @@ public class SingUp extends AppCompatActivity implements View.OnClickListener {
             }
         });
 
+        */
+        subirFoto = new Dialog(SingUp.this, android.R.style.Theme_Material_Dialog);
+        subirFoto.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        subirFoto.setContentView(R.layout.layout_subir_foto);
+        btnImgUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(intent, CODIGO_RESPUESTA_GALERIA);
+            }
+        });
+        subirFoto.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        subirFoto.getWindow().setLayout(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        subirFoto.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        subirFoto.show();
+
     }
 
-    Dialog subirFoto;
+    /*
 
     public void SubirFoto(){
         subirFoto = new Dialog(SingUp.this, android.R.style.Theme_Material_Dialog);
         subirFoto.requestWindowFeature(Window.FEATURE_NO_TITLE);
         subirFoto.setContentView(R.layout.layout_subir_foto);
 
+        imgFotoPerfil = (ImageView)subirFoto.findViewById(R.id.imgFotoPerfil);
+
+        Button btnAgregar = (Button)subirFoto.findViewById(R.id.btnAgregar);
+        Button btnEliminar = (Button)subirFoto.findViewById(R.id.btnEliminar);
+        Button btnCancelar = (Button)subirFoto.findViewById(R.id.btnCancelar);
+
+        btnAgregar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(intent, CODIGO_RESPUESTA_GALERIA);
+            }
+        });
+
         subirFoto.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         subirFoto.getWindow().setLayout(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         subirFoto.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         subirFoto.show();
-        // subirFoto.setCanceledOnTouchOutside();
     }
 
+     */
+    
+    //validaciones de elecció en galeria
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == RESULT_OK){
+            if(data != null){
+                uri = data.getData();
+                try {
+                    imgFotoPerfil.setImageBitmap(MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri));
+                    UploadTask uploadTask;
+                    final StorageReference refe = storageReference.child("Perfil").child(FirebaseAuth.getInstance().getCurrentUser().getUid()+".jpg" );
+                    uploadTask = refe.putFile(uri);
+                    uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+
+                        @Override
+                        public Task<Uri> then(@NonNull @NotNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                            if (!task.isSuccessful())
+                                throw task.getException();
+                                return refe.getDownloadUrl();
+
+                        }
+                    }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Uri> task) {
+                            if(task.isSuccessful()){
+                                imagen = task.getResult().toString();
+
+                               /* Map<String, Object> map = new HashMap<>();
+                                    map.put("foto_perfil", task.getResult().toString());
+                                    FirebaseFirestore.getInstance().collection("Users").document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                            .update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void unused) {
+                                            Toast.makeText(getApplicationContext(), "Imagen Actualizada", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+
+                                */
+                            }
+                        }
+                    });
+                }catch (Exception e){
+                    Log.e("Error", ""+e.toString());
+                }
+            }
+        }
+    }
+
+    ///
     public void  registerUser(){
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
@@ -275,10 +377,13 @@ public class SingUp extends AppCompatActivity implements View.OnClickListener {
                     map.put("Tipo", userType);
                     map.put("Oficio", ofice);
                     map.put("descripcion", descripc);
+                   // map.put("imagen", imagen);
                     //map.put("FechaNac", editTextDate.getText());
                     //fecha cracion
 
                    // System.out.println(map);
+
+                    btnImgUser.setImageURI(uri);
 
                     String id=  auth.getCurrentUser().getUid();
                     database.child("Users").child(id).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {

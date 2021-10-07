@@ -2,17 +2,17 @@ package com.example.homehelp;
 
 public class Operadores {
 
-    String userName, Ciudad, Oficio, surl;
+    String userName, Ciudad, Oficio, foto_perfil;
     int Puntaje;
 
     Operadores(){
 
     }
-    public Operadores(String userName, String Ciudad, String Oficio, String surl, int puntaje) {
+    public Operadores(String userName, String Ciudad, String Oficio, String foto_perfil, int puntaje) {
         this.userName = userName;
         this.Ciudad = Ciudad;
         this.Oficio = Oficio;
-        this.surl = surl;
+        this.foto_perfil = foto_perfil;
         Puntaje = puntaje;
     }
 
@@ -28,8 +28,8 @@ public class Operadores {
         return Oficio;
     }
 
-    public String getSurl() {
-        return surl;
+    public String getFoto_perfil() {
+        return foto_perfil;
     }
 
     public int getPuntaje() {
