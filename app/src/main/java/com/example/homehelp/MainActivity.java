@@ -72,22 +72,8 @@ public class MainActivity extends AppCompatActivity {
 
             public void onComplete(@NonNull Task<AuthResult> task) {
 
-                System.out.println("------------------------"+tipo);
                 if (task.isSuccessful()) {
                     getInfo();
-                    System.out.println("------------------"+tipo);
-                    if(tipo.equals("Cliente")){
-
-                        Toast.makeText(MainActivity.this, "Iniciando sesión de Cliente", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(MainActivity.this, activity_view_customer.class));
-                        finish();
-                    }
-
-                    if(tipo.equals("Operador")){
-                        Toast.makeText(MainActivity.this, "Iniciando sesión de Operador", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(MainActivity.this, activity_view_worker.class));
-                        finish();
-                    }
 
                 } else {
                     Toast.makeText(MainActivity.this, "No se pudo iniciar sesión. Compruebe los datos ingresados", Toast.LENGTH_SHORT).show();
@@ -98,40 +84,35 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    /*
-     public void loginUOperador() {
-        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    startActivity(new Intent(MainActivity.this, activity_view_worker.class));
-                    finish();
-                } else {
-                    Toast.makeText(MainActivity.this, "No se pudo iniciar sesión. Compruebe los datos ingresados", Toast.LENGTH_SHORT).show();
-                }
+    private  void iniciar(){
+        if(tipo.equals("Cliente")){
+            // Toast.makeText(MainActivity.this, "Iniciando sesión de Cliente", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(MainActivity.this, activity_view_customer.class));
+            finish();
+        }
 
-            }
-        });
+        if(tipo.equals("Operador")){
+            // Toast.makeText(MainActivity.this, "Iniciando sesión de Operador", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(MainActivity.this, activity_view_worker.class));
+            finish();
+        }
 
     }
-
-     */
     private void getInfo(){
         String id = auth.getCurrentUser().getUid();
         DB.child("Users").child(id).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                System.out.println("------------------"+tipo);
                 if(snapshot.exists()){
                     tipo = snapshot.child("Tipo").getValue().toString();
-                    System.out.println("------------------"+tipo);
-                    /*if(tipo.equals("Cliente")){
-                        loginCliente();
-                        Toast.makeText(MainActivity.this, "Iniciando sesión de Cliente", Toast.LENGTH_SHORT).show();
+                    if(tipo.equals("Cliente")){
+                       // loginCliente();
+                        //Toast.makeText(MainActivity.this, "Iniciando sesión de Cliente", Toast.LENGTH_SHORT).show();
                     }else {
-                        loginUOperador();
+                     //   loginUOperador();
                         Toast.makeText(MainActivity.this, "Iniciando sesión de Operador", Toast.LENGTH_SHORT).show();
-                    }*/
+                   }
+                    iniciar();
                 }
             }
 
@@ -148,4 +129,67 @@ public class MainActivity extends AppCompatActivity {
         startActivity(singUp);
         finish();
     }
+
+    /*
+
+    public void loginCliente() {
+        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+
+                if (task.isSuccessful()) {
+                    startActivity(new Intent(MainActivity.this, activity_view_customer.class));
+                    finish();
+
+                } else {
+                    Toast.makeText(MainActivity.this, "No se pudo iniciar sesión. Compruebe los datos ingresados", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
+    }
+
+
+     public void loginUOperador() {
+        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    startActivity(new Intent(MainActivity.this, activity_view_worker.class));
+                    finish();
+                } else {
+                    Toast.makeText(MainActivity.this, "No se pudo iniciar sesión. Compruebe los datos ingresados", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
+    }
+
+    private void getInfo(){
+        String id = auth.getCurrentUser().getUid();
+        DB.child("Users").child(id).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    tipo = snapshot.child("Tipo").getValue().toString();
+                    if(tipo.equals("Cliente")){
+                        loginCliente();
+                        Toast.makeText(MainActivity.this, "Iniciando sesión de Cliente", Toast.LENGTH_SHORT).show();
+                    }else {
+                        loginUOperador();
+                        Toast.makeText(MainActivity.this, "Iniciando sesión de Operador", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+      */
 }

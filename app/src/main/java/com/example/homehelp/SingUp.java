@@ -4,10 +4,15 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -15,6 +20,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.MultiAutoCompleteTextView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -53,6 +59,7 @@ public class SingUp extends AppCompatActivity implements View.OnClickListener {
 
     //botones
     Button btnRegister, btnBack;
+    ImageButton btnImgUser;
 
     //coneccion
     FirebaseAuth auth;
@@ -128,6 +135,7 @@ public class SingUp extends AppCompatActivity implements View.OnClickListener {
         //botones
         btnRegister = (Button) findViewById(R.id.btnRegister);
         btnBack = (Button) findViewById(R.id.btnCancel);
+        btnImgUser = (ImageButton)findViewById(R.id.btnImgUser);
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -223,6 +231,27 @@ public class SingUp extends AppCompatActivity implements View.OnClickListener {
             }
         });
 
+        btnImgUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SubirFoto();
+            }
+        });
+
+    }
+
+    Dialog subirFoto;
+
+    public void SubirFoto(){
+        subirFoto = new Dialog(SingUp.this, android.R.style.Theme_Material_Dialog);
+        subirFoto.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        subirFoto.setContentView(R.layout.layout_subir_foto);
+
+        subirFoto.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        subirFoto.getWindow().setLayout(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        subirFoto.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        subirFoto.show();
+        // subirFoto.setCanceledOnTouchOutside();
     }
 
     public void  registerUser(){

@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.homehelp">
 
+    <uses-permission android:name="andriod.permission.INTERNET"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".Search_activity"></activity>
+        <activity android:name=".WorkerList"></activity>
+        <activity android:name=".Search_activity" />
         <activity android:name=".carga" />
         <activity android:name=".activity_view_worker" />
         <activity android:name=".activity_view_customer" />
