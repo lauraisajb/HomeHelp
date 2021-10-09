@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 public class Search_activity extends AppCompatActivity {
 
@@ -36,15 +37,12 @@ public class Search_activity extends AppCompatActivity {
         //CIUDAD
         comboCity2 = (Spinner) findViewById(R.id.spinnerCiudad2);
 
-        String [] Ciudades2= {"Ciudad","Tulua","Buga"};
-        ArrayAdapter<String> adapterCiudad = new ArrayAdapter<>(this, R.layout.spinner_item,Ciudades2);
+        ArrayAdapter<CharSequence> adapterCiudad = ArrayAdapter.createFromResource(this, R.array.Ciudad, android.R.layout.simple_spinner_item);
         comboCity2.setAdapter(adapterCiudad);
 
         //Oficio
         comboOficio2 = (Spinner) findViewById(R.id.spinnerOficio2);
-        String[] Oficio2 = {"Oficio","Carpintero","Fontanero","Electricista","Pintor"};
-
-        ArrayAdapter<CharSequence> adapterOficio = new ArrayAdapter<>(this,R.layout.spinner_item,Oficio2);
+        ArrayAdapter<CharSequence> adapterOficio = ArrayAdapter.createFromResource(this, R.array.Oficio, android.R.layout.simple_spinner_item);
         comboOficio2.setAdapter(adapterOficio);
 
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -58,10 +56,32 @@ public class Search_activity extends AppCompatActivity {
         btnEmpezar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String city, oficio;
+                int calificacion = 0;
 
-                startActivity(new Intent( Search_activity.this, WorkerList.class));
+                city = comboCity2.getSelectedItem().toString();
+                oficio = comboOficio2.getSelectedItem().toString();
+
+                if (city.equals("Ciudad")) {
+                    Toast.makeText(Search_activity.this, "Debe elegir una ciudad", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (oficio.equals("Oficio")) {
+                    Toast.makeText(Search_activity.this, "Debe elegir un oficio", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+
+                Intent intent = new Intent( Search_activity.this, WorkerList.class);
+                intent.putExtra("oficio",oficio);
+                intent.putExtra("city", city);
+                intent.putExtra("calificacion", calificacion);
+                startActivity(intent);
             }
         });
+
+
 
     }
 }

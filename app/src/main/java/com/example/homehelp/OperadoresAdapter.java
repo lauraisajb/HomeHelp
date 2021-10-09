@@ -71,6 +71,8 @@ public class OperadoresAdapter extends FirebaseRecyclerAdapter<Operadores, Opera
         CircleImageView img;
         TextView Username, Oficio, city;
 
+
+
         public myViewHolder(@NonNull View itemView){
             super(itemView);
             context = itemView.getContext();

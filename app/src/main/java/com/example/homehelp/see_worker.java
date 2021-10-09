@@ -28,7 +28,6 @@ public class see_worker extends AppCompatActivity {
     private  String seeWorkerId;
 
     //DB
-
     private DatabaseReference DB;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
