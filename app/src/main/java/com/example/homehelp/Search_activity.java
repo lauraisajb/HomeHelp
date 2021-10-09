@@ -40,8 +40,6 @@ public class Search_activity extends AppCompatActivity {
         ArrayAdapter<String> adapterCiudad = new ArrayAdapter<>(this, R.layout.spinner_item,Ciudades2);
         comboCity2.setAdapter(adapterCiudad);
 
-
-
         //Oficio
         comboOficio2 = (Spinner) findViewById(R.id.spinnerOficio2);
         String[] Oficio2 = {"Oficio","Carpintero","Fontanero","Electricista","Pintor"};
@@ -64,9 +62,6 @@ public class Search_activity extends AppCompatActivity {
                 startActivity(new Intent( Search_activity.this, WorkerList.class));
             }
         });
-
-
-
 
     }
 }
