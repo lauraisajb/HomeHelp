@@ -3,6 +3,7 @@ package com.example.homehelp;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -28,6 +29,7 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -79,9 +81,11 @@ public class SingUp extends AppCompatActivity implements View.OnClickListener {
     StorageReference storageReference;
 
     //fotos
-    Dialog subirFoto;
+    private static  final  int GALLERY_INTENT =1;
+
+    /*Dialog subirFoto;
     ImageView imgFotoPerfil;
-    final  int CODIGO_RESPUESTA_GALERIA=3;
+    final  int CODIGO_RESPUESTA_GALERIA=3;*/
 
     Uri uri;
     @Override
@@ -94,8 +98,8 @@ public class SingUp extends AppCompatActivity implements View.OnClickListener {
         database = FirebaseDatabase.getInstance().getReference();
         storageReference = FirebaseStorage.getInstance().getReference();
         //FECHA
-        btnDate = (ImageButton)findViewById(R.id.BtnDate);
-        editTextDate = (EditText)findViewById(R.id.eDate);
+        btnDate = (ImageButton) findViewById(R.id.BtnDate);
+        editTextDate = (EditText) findViewById(R.id.eDate);
         btnDate.setOnClickListener(this);
 
         //CIUDAD
@@ -121,7 +125,7 @@ public class SingUp extends AppCompatActivity implements View.OnClickListener {
         comboOficio.setAdapter(adapterOficio);
 
         //descripcion
-        descripcion = (MultiAutoCompleteTextView)findViewById(R.id.editDescripcion);
+        descripcion = (MultiAutoCompleteTextView) findViewById(R.id.editDescripcion);
 
 
         //visibilidad
@@ -156,7 +160,7 @@ public class SingUp extends AppCompatActivity implements View.OnClickListener {
         //botones
         btnRegister = (Button) findViewById(R.id.btnRegister);
         btnBack = (Button) findViewById(R.id.btnCancel);
-        btnImgUser = (ImageButton)findViewById(R.id.btnImgUser);
+        btnImgUser = (ImageButton) findViewById(R.id.btnImgUser);
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -188,170 +192,114 @@ public class SingUp extends AppCompatActivity implements View.OnClickListener {
                 //Validar datos
 
                 //validar que esten llenos los campos
-                if(userName.isEmpty()){
+                if (userName.isEmpty()) {
                     Toast.makeText(SingUp.this, "Debe asignar un nombre de usuario", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(fName.isEmpty()){
+                if (fName.isEmpty()) {
                     Toast.makeText(SingUp.this, "Debe ingresar su nombre", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(lName.isEmpty()){
+                if (lName.isEmpty()) {
                     Toast.makeText(SingUp.this, "Debe  ingresar su apellido", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(email.isEmpty()){
+                if (email.isEmpty()) {
                     Toast.makeText(SingUp.this, "Debe ingresar su correo", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(password.isEmpty()){
+                if (password.isEmpty()) {
                     Toast.makeText(SingUp.this, "Debe ingresar una contraseña", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(password.length()<7){
+                if (password.length() < 7) {
                     Toast.makeText(SingUp.this, "La contraseña debe tener 8 caracteres o mas", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(!password.equals(comfPass)){
+                if (!password.equals(comfPass)) {
                     Toast.makeText(SingUp.this, "Las constraseñas no coinciden", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(dir.isEmpty()){
+                if (dir.isEmpty()) {
                     Toast.makeText(SingUp.this, "Debe ingresar su direccion", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(phone.isEmpty()){
+                if (phone.isEmpty()) {
                     Toast.makeText(SingUp.this, "Debe ingresar su telefono", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(userType.equals("Tipo de Usuario")) {
+                if (userType.equals("Tipo de Usuario")) {
                     Toast.makeText(SingUp.this, "Elija el tipo de Usuario", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if(userType.equals("Operador")){
-                    if(ofice.equals("Oficio")){
+                if (userType.equals("Operador")) {
+                    if (ofice.equals("Oficio")) {
                         Toast.makeText(SingUp.this, "Debe elegir un oficio", Toast.LENGTH_SHORT).show();
                         return;
                     }
 
-                    if(descripc.isEmpty()){
+                    if (descripc.isEmpty()) {
                         Toast.makeText(SingUp.this, "Debe ingresar la descripcion", Toast.LENGTH_SHORT).show();
                         return;
                     }
                 }
 
-                if(city.equals("Ciudad")){
+                if (city.equals("Ciudad")) {
                     Toast.makeText(SingUp.this, "Debe elegir una ciudad", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
 
                 registerUser();
 
             }
         });
 
-        /*
+        //subir foto
         btnImgUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SubirFoto();
+                Intent intent = new Intent(Intent.ACTION_PICK);//seleccionar una imagen de la galeria
+                intent.setType("image/*");
+                startActivityForResult(intent, GALLERY_INTENT);
+                System.out.println("--------------btnIMG--------------------");
             }
         });
-
-        */
-        subirFoto = new Dialog(SingUp.this, android.R.style.Theme_Material_Dialog);
-        subirFoto.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        subirFoto.setContentView(R.layout.layout_subir_foto);
-        btnImgUser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(intent, CODIGO_RESPUESTA_GALERIA);
-            }
-        });
-        subirFoto.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-        subirFoto.getWindow().setLayout(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-        subirFoto.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        subirFoto.show();
-
     }
 
-    /*
-
-    public void SubirFoto(){
-        subirFoto = new Dialog(SingUp.this, android.R.style.Theme_Material_Dialog);
-        subirFoto.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        subirFoto.setContentView(R.layout.layout_subir_foto);
-
-        imgFotoPerfil = (ImageView)subirFoto.findViewById(R.id.imgFotoPerfil);
-
-        Button btnAgregar = (Button)subirFoto.findViewById(R.id.btnAgregar);
-        Button btnEliminar = (Button)subirFoto.findViewById(R.id.btnEliminar);
-        Button btnCancelar = (Button)subirFoto.findViewById(R.id.btnCancelar);
-
-        btnAgregar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(intent, CODIGO_RESPUESTA_GALERIA);
-            }
-        });
-
-        subirFoto.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-        subirFoto.getWindow().setLayout(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-        subirFoto.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        subirFoto.show();
-    }
-
-     */
-    
-    //validaciones de elecció en galeria
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == RESULT_OK){
-            if(data != null){
-                uri = data.getData();
-                try {
-                    imgFotoPerfil.setImageBitmap(MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri));
-                    UploadTask uploadTask;
-                    final StorageReference refe = storageReference.child("Perfil").child(FirebaseAuth.getInstance().getCurrentUser().getUid()+".jpg" );
-                    uploadTask = refe.putFile(uri);
-                    uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
 
-                        @Override
-                        public Task<Uri> then(@NonNull @NotNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                            if (!task.isSuccessful())
-                                throw task.getException();
-                                return refe.getDownloadUrl();
+        System.out.println("--------------btnIMG--------------------");
+        if(requestCode == GALLERY_INTENT && resultCode== RESULT_OK){
+            Uri uri = data.getData();
 
-                        }
-                    }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Uri> task) {
-                            if(task.isSuccessful()){
-                                imagen = task.getResult().toString();
+            StorageReference  filePath = storageReference.child("fotos").child(uri.getLastPathSegment());
 
-                               /* Map<String, Object> map = new HashMap<>();
-                                    map.put("foto_perfil", task.getResult().toString());
-                                    FirebaseFirestore.getInstance().collection("Users").document(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                            .update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void unused) {
-                                            Toast.makeText(getApplicationContext(), "Imagen Actualizada", Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
+            System.out.println("--------------if--------------------");
 
-                                */
-                            }
-                        }
-                    });
-                }catch (Exception e){
-                    Log.e("Error", ""+e.toString());
+            filePath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+
+
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                    System.out.println("--------------onSuccess--------------------");
+                    Uri descargarFoto =  taskSnapshot.getStorage().getDownloadUrl().getResult();
+                    System.out.println(descargarFoto);
+
+                    System.out.println("--------------descargarFoto--------------------");
+
+                    Glide.with(SingUp.this)
+                        .load(descargarFoto)
+                        .fitCenter()
+                        .centerCrop()
+                        .into(btnImgUser);
+                    Toast.makeText(SingUp.this, "Foto agregada exitosamente", Toast.LENGTH_LONG).show();
                 }
-            }
+
+            });
         }
     }
 
@@ -362,9 +310,7 @@ public class SingUp extends AppCompatActivity implements View.OnClickListener {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if( task.isSuccessful()){
 
-
                    // fechNac = (Date) editTextDate.getText();
-
 
                     Map<String, Object> map = new HashMap<>();
                     map.put("userName", userName);
@@ -383,7 +329,6 @@ public class SingUp extends AppCompatActivity implements View.OnClickListener {
 
                    // System.out.println(map);
 
-                    btnImgUser.setImageURI(uri);
 
                     String id=  auth.getCurrentUser().getUid();
                     database.child("Users").child(id).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -434,6 +379,95 @@ public class SingUp extends AppCompatActivity implements View.OnClickListener {
             datePickerDialog.show();
         }
 
+    }
+
+    /*
+        btnImgUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SubirFoto();
+            }
+        });
+
+        /*
 
     }
+
+    /*
+
+    public void SubirFoto(){
+        subirFoto = new Dialog(SingUp.this, android.R.style.Theme_Material_Dialog);
+        subirFoto.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        subirFoto.setContentView(R.layout.layout_subir_foto);
+
+        imgFotoPerfil = (ImageView)subirFoto.findViewById(R.id.imgFotoPerfil);
+
+        Button btnAgregar = (Button)subirFoto.findViewById(R.id.btnAgregar);
+        Button btnEliminar = (Button)subirFoto.findViewById(R.id.btnEliminar);
+        Button btnCancelar = (Button)subirFoto.findViewById(R.id.btnCancelar);
+
+        btnAgregar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(intent, CODIGO_RESPUESTA_GALERIA);
+            }
+        });
+
+        subirFoto.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        subirFoto.getWindow().setLayout(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        subirFoto.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        subirFoto.show();
+    }
+
+
+
+    //validaciones de elecció en galeria
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == RESULT_OK){
+            if(data != null){
+                uri = data.getData();
+                try {
+                    imgFotoPerfil.setImageBitmap(MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri));
+                    UploadTask uploadTask;
+                    final StorageReference refe = storageReference.child("Perfil").child(FirebaseAuth.getInstance().getCurrentUser().getUid()+".jpg" );
+                    uploadTask = refe.putFile(uri);
+                    uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+
+                        @Override
+                        public Task<Uri> then(@NonNull @NotNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                            if (!task.isSuccessful())
+                                throw task.getException();
+                                return refe.getDownloadUrl();
+
+                        }
+                    }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Uri> task) {
+                            if(task.isSuccessful()){
+                                imagen = task.getResult().toString();
+
+                               Map<String, Object> map = new HashMap<>();
+                                    map.put("foto_perfil", task.getResult().toString());
+                                    FirebaseFirestore.getInstance().collection("Users").document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                            .update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void unused) {
+                                            Toast.makeText(getApplicationContext(), "Imagen Actualizada", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+
+
+                            }
+                        }
+                    });
+                }catch (Exception e){
+                    Log.e("Error", ""+e.toString());
+                }
+            }
+        }
+    }
+                  */
 }

@@ -2,7 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.homehelp">
 
-    <uses-permission android:name="andriod.permission.INTERNET"/>
+    <uses-permission android:name="andriod.permission.INTERNET" />
+    <uses-permission android:name="andriod.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="andriod.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -11,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".WorkerList"></activity>
+        <activity android:name=".see_worker"></activity>
+        <activity android:name=".WorkerList" />
         <activity android:name=".Search_activity" />
         <activity android:name=".carga" />
         <activity android:name=".activity_view_worker" />

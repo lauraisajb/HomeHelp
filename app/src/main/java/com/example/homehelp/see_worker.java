@@ -8,60 +8,60 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class activity_view_worker extends AppCompatActivity {
+public class see_worker extends AppCompatActivity {
 
-    //botones
-    private ImageButton btnClose;
+    //buttons
+    ImageButton btnBack;
 
-    //textos
+    //text
     TextView eUserName, eCity, eDescripcion, eJob;
 
-    //FireBase
-    private FirebaseAuth auth;
+    //id
+    private  String seeWorkerId;
+
+    //DB
+
     private DatabaseReference DB;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_worker);
+        setContentView(R.layout.activity_see_worker);
 
-        //firebase
-        auth = FirebaseAuth.getInstance();
+        seeWorkerId = getIntent().getExtras().get("seeWorkerId").toString();
+        Toast.makeText(this, "Visualizando "+seeWorkerId, Toast.LENGTH_SHORT).show();
+
+        //DB
         DB = FirebaseDatabase.getInstance().getReference();
         //button
-        btnClose = (ImageButton) findViewById(R.id.btnCloseW);
+        btnBack = (ImageButton) findViewById(R.id.btnBackSW);
         //textView
-        eUserName = (TextView) findViewById(R.id.textName);
-        eJob = (TextView) findViewById(R.id.textJob);
+        eUserName = (TextView) findViewById(R.id.UserNameSW);
+        eJob = (TextView) findViewById(R.id.JobSW);
         eCity = (TextView) findViewById(R.id.CitySW);
         eDescripcion = (TextView) findViewById(R.id.textDescripcionSW);
 
-
-        getInfo();
-
-        btnClose.setOnClickListener(new View.OnClickListener() {
+        btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                auth.signOut();
-                startActivity(new Intent(activity_view_worker.this, MainActivity.class));
+                startActivity(new Intent(see_worker.this, WorkerList.class));
             }
         });
-
-
+        getInfo();
     }
 
     private void getInfo(){
-        String id = auth.getCurrentUser().getUid();
+        String id = seeWorkerId;
         DB.child("Users").child(id).addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull  DataSnapshot snapshot) {
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
                     String userName = snapshot.child("userName").getValue().toString();
                     String job = snapshot.child("Oficio").getValue().toString();
@@ -76,7 +76,7 @@ public class activity_view_worker extends AppCompatActivity {
             }
 
             @Override
-            public void onCancelled(@NonNull  DatabaseError error) {
+            public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });

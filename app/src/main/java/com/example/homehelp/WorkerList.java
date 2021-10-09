@@ -37,8 +37,12 @@ public class WorkerList extends AppCompatActivity {
                         .build();
 
 
-        operadoresAdapter = new OperadoresAdapter(options);
+        operadoresAdapter = new OperadoresAdapter( options,this);
         recyclerView.setAdapter(operadoresAdapter);
+
+
+
+
 
         btnBackWL.setOnClickListener(new View.OnClickListener() {
             @Override

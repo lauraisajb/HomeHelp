@@ -9,12 +9,9 @@
         android:id="@+id/imageView19"
         android:layout_width="wrap_content"
         android:layout_height="139dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/fondoancho" />
 
     <ImageView
@@ -32,7 +29,7 @@
         app:srcCompat="@drawable/user" />
 
     <TextView
-        android:id="@+id/textName"
+        android:id="@+id/UserNameSW"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
@@ -49,7 +46,7 @@
         app:layout_constraintTop_toTopOf="@+id/imageView20" />
 
     <TextView
-        android:id="@+id/textJob"
+        android:id="@+id/JobSW"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
@@ -62,7 +59,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textName" />
+        app:layout_constraintTop_toTopOf="@+id/UserNameSW" />
 
     <TextView
         android:id="@+id/CitySW"
@@ -78,7 +75,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textJob" />
+        app:layout_constraintTop_toTopOf="@+id/JobSW" />
 
     <TextView
         android:id="@+id/textView8"
@@ -210,7 +207,7 @@
         app:srcCompat="@drawable/starvacia" />
 
     <ImageButton
-        android:id="@+id/btnCloseW"
+        android:id="@+id/btnBackSW"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/leftarrow"
