@@ -12,21 +12,23 @@
         android:layout_height="60dp"
         android:layout_marginBottom="20dp"
         android:ems="10"
-        android:inputType="textEmailAddress"
         android:hint="Ingrese Correo "
+        android:inputType="textEmailAddress"
         app:layout_constraintBottom_toTopOf="@+id/ePassword"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.481"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.969" />
 
     <EditText
         android:id="@+id/ePassword"
         android:layout_width="328dp"
         android:layout_height="60dp"
-        android:layout_marginBottom="460dp"
+        android:layout_marginBottom="416dp"
         android:ems="10"
-        android:inputType="textPassword"
         android:hint="Ingrese su Contraseña "
+        android:inputType="textPassword"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.518"
@@ -47,19 +49,18 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="407dp"
-        android:layout_height="88dp"
-        android:layout_marginBottom="52dp"
-        app:layout_constraintBottom_toTopOf="@+id/eCorreo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.545"
+        android:layout_width="wrap_content"
+        android:layout_height="139dp"
+        android:layout_marginBottom="624dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:srcCompat="@drawable/fondoancho"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/fondo" />
+        tools:layout_editor_absoluteX="0dp" />
 
     <Button
         android:id="@+id/button2"
-        android:layout_width="102dp"
-        android:layout_height="73dp"
+        android:layout_width="95dp"
+        android:layout_height="109dp"
         android:onClick="singUp"
         android:stateListAnimator="@null"
         android:text="@string/SINGUP"
@@ -77,10 +78,12 @@
         android:id="@+id/imageView2"
         android:layout_width="78dp"
         android:layout_height="78dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintStart_toStartOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintVertical_bias="0.868"
         app:srcCompat="@drawable/logo" />
 
     <TextView
@@ -89,11 +92,13 @@
         android:layout_height="wrap_content"
         android:text="Home Help"
         android:textColor="#FFFFFF"
-        android:textSize="24sp"
+        android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toStartOf="@+id/button2"
+        app:layout_constraintHorizontal_bias="0.542"
         app:layout_constraintStart_toEndOf="@+id/imageView2"
-        app:layout_constraintTop_toTopOf="@+id/imageView" />
+        app:layout_constraintTop_toTopOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.775" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

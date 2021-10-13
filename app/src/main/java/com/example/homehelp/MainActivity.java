@@ -20,6 +20,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.jetbrains.annotations.NotNull;
+
 public class MainActivity extends AppCompatActivity {
 
     private EditText eCorreo, ePassword;
@@ -27,6 +29,10 @@ public class MainActivity extends AppCompatActivity {
     private String email = "";
     private String password = "";
     private String tipo="";
+
+
+    //Oficio
+    String Oficio = "Cliente";
 
     //firebase
     private FirebaseAuth auth;
@@ -89,8 +95,8 @@ public class MainActivity extends AppCompatActivity {
             // Toast.makeText(MainActivity.this, "Iniciando sesión de Cliente", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(MainActivity.this, activity_view_customer.class));
             finish();
-        }
 
+        }
         if(tipo.equals("Operador")){
             // Toast.makeText(MainActivity.this, "Iniciando sesión de Operador", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(MainActivity.this, activity_view_worker.class));
@@ -104,21 +110,29 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){
-                    tipo = snapshot.child("Tipo").getValue().toString();
-                    if(tipo.equals("Cliente")){
-                       // loginCliente();
-                        //Toast.makeText(MainActivity.this, "Iniciando sesión de Cliente", Toast.LENGTH_SHORT).show();
-                    }else {
-                     //   loginUOperador();
-                        Toast.makeText(MainActivity.this, "Iniciando sesión de Operador", Toast.LENGTH_SHORT).show();
-                   }
-                    iniciar();
+                    Oficio = snapshot.child("Oficio").getValue().toString();
+                    System.out.println(Oficio+"------------------------------------");
+                    DB.child(Oficio).child(id).addValueEventListener(new ValueEventListener() {
+                       @Override
+                       public void onDataChange(@NonNull @NotNull DataSnapshot snapshot2) {
+                            if(snapshot2.exists()){
+                                if(!Oficio.equals("Cliente")) {
+                                    tipo = snapshot2.child("Tipo").getValue().toString();
+
+                                }else{
+                                    tipo="Cliente";
+                                }
+                                iniciar();
+                            }
+                       }
+                       @Override
+                       public void onCancelled(@NonNull @NotNull DatabaseError error) {
+                       }
+                   });
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
     }
@@ -130,66 +144,4 @@ public class MainActivity extends AppCompatActivity {
         finish();
     }
 
-    /*
-
-    public void loginCliente() {
-        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-
-                if (task.isSuccessful()) {
-                    startActivity(new Intent(MainActivity.this, activity_view_customer.class));
-                    finish();
-
-                } else {
-                    Toast.makeText(MainActivity.this, "No se pudo iniciar sesión. Compruebe los datos ingresados", Toast.LENGTH_SHORT).show();
-                }
-
-            }
-        });
-
-    }
-
-
-     public void loginUOperador() {
-        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    startActivity(new Intent(MainActivity.this, activity_view_worker.class));
-                    finish();
-                } else {
-                    Toast.makeText(MainActivity.this, "No se pudo iniciar sesión. Compruebe los datos ingresados", Toast.LENGTH_SHORT).show();
-                }
-
-            }
-        });
-
-    }
-
-    private void getInfo(){
-        String id = auth.getCurrentUser().getUid();
-        DB.child("Users").child(id).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
-                    tipo = snapshot.child("Tipo").getValue().toString();
-                    if(tipo.equals("Cliente")){
-                        loginCliente();
-                        Toast.makeText(MainActivity.this, "Iniciando sesión de Cliente", Toast.LENGTH_SHORT).show();
-                    }else {
-                        loginUOperador();
-                        Toast.makeText(MainActivity.this, "Iniciando sesión de Operador", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
-
-      */
 }

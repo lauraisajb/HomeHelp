@@ -76,7 +76,7 @@ public class Search_activity extends AppCompatActivity {
                 Intent intent = new Intent( Search_activity.this, WorkerList.class);
                 intent.putExtra("oficio",oficio);
                 intent.putExtra("city", city);
-                intent.putExtra("calificacion", calificacion);
+                //intent.putExtra("calificacion", calificacion);
                 startActivity(intent);
             }
         });

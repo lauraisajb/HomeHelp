@@ -16,6 +16,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.jetbrains.annotations.NotNull;
+
 public class activity_view_worker extends AppCompatActivity {
 
     //botones
@@ -63,15 +65,29 @@ public class activity_view_worker extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull  DataSnapshot snapshot) {
                 if(snapshot.exists()){
-                    String userName = snapshot.child("userName").getValue().toString();
-                    String job = snapshot.child("Oficio").getValue().toString();
-                    String city = snapshot.child("Ciudad").getValue().toString();
-                    String descripcion = snapshot.child("descripcion").getValue().toString();
+                    String Oficio = snapshot.child("Oficio").getValue().toString();
+                    DB.child(Oficio).child(id).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull @NotNull DataSnapshot snapshot2) {
+                           if(snapshot2.exists()){
+                               String userName = snapshot2.child("userName").getValue().toString();
+                               String job = snapshot2.child("Oficio").getValue().toString();
+                               String city = snapshot2.child("Ciudad").getValue().toString();
+                               String descripcion = snapshot2.child("descripcion").getValue().toString();
 
-                    eUserName.setText(userName);
-                    eJob.setText(job);
-                    eCity.setText(city);
-                    eDescripcion.setText(descripcion);
+                               eUserName.setText(userName);
+                               eJob.setText(job);
+                               eCity.setText(city);
+                               eDescripcion.setText(descripcion);
+                           }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+                        }
+                    });
+
                 }
             }
 

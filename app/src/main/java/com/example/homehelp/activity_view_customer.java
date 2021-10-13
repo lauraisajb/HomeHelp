@@ -66,7 +66,7 @@ public class activity_view_customer extends AppCompatActivity {
 
     private void getInfo(){
         String id = auth.getCurrentUser().getUid();
-        DB.child("Users").child(id).addValueEventListener(new ValueEventListener() {
+        DB.child("Cliente").child(id).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.exists()){

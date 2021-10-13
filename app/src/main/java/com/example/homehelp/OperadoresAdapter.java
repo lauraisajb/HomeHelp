@@ -33,18 +33,24 @@ public class OperadoresAdapter extends FirebaseRecyclerAdapter<Operadores, Opera
      */
 
     Context activity;
-    public OperadoresAdapter(@NonNull FirebaseRecyclerOptions<Operadores> options, Context activity) {
+    String oficio, ciudad, getOficio, getCiudad;
+    public OperadoresAdapter(@NonNull FirebaseRecyclerOptions<Operadores> options, Context activity, String oficio, String ciudad) {
         super(options);
+        this.oficio = oficio;
+        this.ciudad = ciudad;
         this.activity=activity;
     }
 
     @Override
     protected void onBindViewHolder(@NonNull myViewHolder holder, int position, @NonNull Operadores model) {
-        //datos
+
+        getCiudad = model.getCiudad();
+        getOficio = model.getOficio();
         holder.Username.setText(model.getUserName());
         holder.city.setText(model.getCiudad());
         holder.Oficio.setText(model.getOficio());
 
+        //foto de perfil
         /*Glide.with(holder.img.getContext())
                 .load(model.getSurl())
                 .placeholder(R.drawable.common_google_signin_btn_icon_dark)
@@ -54,12 +60,15 @@ public class OperadoresAdapter extends FirebaseRecyclerAdapter<Operadores, Opera
 
         holder.setOnClickListener(position);
 
+
     }
 
     @NotNull
     @Override
     public myViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item, parent, false);
+        
         return new myViewHolder(view);
     }
 
@@ -67,17 +76,16 @@ public class OperadoresAdapter extends FirebaseRecyclerAdapter<Operadores, Opera
 
         //context
         Context context;
-
+        //imagen
         CircleImageView img;
+        //oficio
         TextView Username, Oficio, city;
-
-
 
         public myViewHolder(@NonNull View itemView){
             super(itemView);
-            context = itemView.getContext();
 
-           // img = (CircleImageView)itemView.findViewById(R.id.img1);
+            // img = (CircleImageView)itemView.findViewById(R.id.img1);
+            context = itemView.getContext();
             Username = (TextView)itemView.findViewById(R.id.eUsername);
             Oficio = (TextView)itemView.findViewById(R.id.eOficio);
             city = (TextView)itemView.findViewById(R.id.eCity);
@@ -92,6 +100,8 @@ public class OperadoresAdapter extends FirebaseRecyclerAdapter<Operadores, Opera
 
                     Intent intent = new  Intent(context, see_worker.class);
                     intent.putExtra("seeWorkerId", seeWorkerId);
+                    intent.putExtra("oficio",oficio);
+                    intent.putExtra("city",ciudad);
                     context.startActivity(intent);
 
                 }

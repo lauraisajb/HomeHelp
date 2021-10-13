@@ -1,5 +1,7 @@
 package com.example.homehelp;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,11 +13,16 @@ import android.widget.ImageButton;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 
@@ -53,29 +60,17 @@ public class WorkerList extends AppCompatActivity {
 
         ciudad = getIntent().getExtras().get("city").toString();
         oficio = getIntent().getExtras().get("oficio").toString();
-        calificacion = parseInt( getIntent().getExtras().get("calificacion").toString());
+        //calificacion = parseInt( getIntent().getExtras().get("calificacion").toString());
 
-        System.out.println("oficion: "+ oficio+ " Ciudad"+ ciudad);
-        DB = FirebaseDatabase.getInstance().getReference().child("User");
-
-        //Query filtro= DB;
-        //filtro.equalTo("Ciudad", ciudad);
-        //filtro.equalTo("Oficio",oficio);
-
-        //DB.equalTo("Ciudad", ""+ciudad+"").equalTo("Oficio",""+oficio+"");
+        Query filtroC = FirebaseDatabase.getInstance().getReference().child(oficio).orderByChild("Ciudad").equalTo(ciudad);
 
         FirebaseRecyclerOptions<Operadores> options =
                 new FirebaseRecyclerOptions.Builder<Operadores>()
-                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Users"), Operadores.class)
+                        .setQuery(filtroC, Operadores.class)
                         .build(); //consulta
 
-
-        operadoresAdapter = new OperadoresAdapter( options,this);
+        operadoresAdapter = new OperadoresAdapter( options,this, oficio, ciudad);
         recyclerView.setAdapter(operadoresAdapter);
-
-
-
-
 
         btnBackWL.setOnClickListener(new View.OnClickListener() {
             @Override

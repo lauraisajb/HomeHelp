@@ -80,6 +80,9 @@ public class SingUp extends AppCompatActivity implements View.OnClickListener {
     DatabaseReference database;
     StorageReference storageReference;
 
+    //Oficio
+    String Oficio = "Cliente";
+
     //fotos
     private static  final  int GALLERY_INTENT =1;
 
@@ -243,6 +246,8 @@ public class SingUp extends AppCompatActivity implements View.OnClickListener {
                         Toast.makeText(SingUp.this, "Debe ingresar la descripcion", Toast.LENGTH_SHORT).show();
                         return;
                     }
+                    //si el tipo de usuario de usuario no es cliente, la variable Oficio cambia al tipo elegido
+                    Oficio =  ofice;
                 }
 
                 if (city.equals("Ciudad")) {
@@ -271,16 +276,13 @@ public class SingUp extends AppCompatActivity implements View.OnClickListener {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        System.out.println("--------------btnIMG--------------------");
         if(requestCode == GALLERY_INTENT && resultCode== RESULT_OK){
             Uri uri = data.getData();
 
             StorageReference  filePath = storageReference.child("fotos").child(uri.getLastPathSegment());
 
             System.out.println("--------------if--------------------");
-
             filePath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-
 
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -288,7 +290,6 @@ public class SingUp extends AppCompatActivity implements View.OnClickListener {
                     System.out.println("--------------onSuccess--------------------");
                     Uri descargarFoto =  taskSnapshot.getStorage().getDownloadUrl().getResult();
                     System.out.println(descargarFoto);
-
                     System.out.println("--------------descargarFoto--------------------");
 
                     Glide.with(SingUp.this)
@@ -311,6 +312,8 @@ public class SingUp extends AppCompatActivity implements View.OnClickListener {
                 if( task.isSuccessful()){
 
                    // fechNac = (Date) editTextDate.getText();
+                    Map<String, Object> users = new HashMap<>();
+                    users.put("Oficio", Oficio);
 
                     Map<String, Object> map = new HashMap<>();
                     map.put("userName", userName);
@@ -320,33 +323,41 @@ public class SingUp extends AppCompatActivity implements View.OnClickListener {
                     map.put("direccion", dir);
                     map.put("phone", phone);
                     map.put("Ciudad", city);
-                    map.put("Tipo", userType);
-                    map.put("Oficio", ofice);
-                    map.put("descripcion", descripc);
-                   // map.put("imagen", imagen);
+                    // map.put("imagen", imagen);
                     //map.put("FechaNac", editTextDate.getText());
                     //fecha cracion
 
-                   // System.out.println(map);
-
+                    if(userType.equals("Operador")) {
+                        map.put("Tipo", userType);
+                        map.put("Oficio", ofice);
+                        map.put("descripcion", descripc);
+                    }
 
                     String id=  auth.getCurrentUser().getUid();
-                    database.child("Users").child(id).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+
+                    database.child("Users").child(id).setValue(users).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull   Task<Void> task2) {
                             if(task2.isSuccessful()){
-                                Toast.makeText(SingUp.this, "registro exitoso", Toast.LENGTH_SHORT).show();
-                                System.out.println(map);
-                                if(userType.equals("Operador")){
-                                    startActivity(new Intent(SingUp.this, activity_view_worker.class));
-                                }
-                                if(userType.equals("Cliente")) {
-                                    startActivity(new Intent(SingUp.this, activity_view_customer.class));
-                                }
 
+                                database.child(Oficio).child(id).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull @NotNull Task<Void> task3) {
+                                        if(task3.isSuccessful()){
+                                            Toast.makeText(SingUp.this, "registro exitoso", Toast.LENGTH_SHORT).show();
+
+                                            if(userType.equals("Operador")){
+                                                startActivity(new Intent(SingUp.this, activity_view_worker.class));
+                                            }
+                                            if(userType.equals("Cliente")) {
+                                                startActivity(new Intent(SingUp.this, activity_view_customer.class));
+                                            }
+                                        }
+                                    }
+                                });
 
                             }else{
-                                Toast.makeText(SingUp.this, "No se pudo completar el registro", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SingUp.this, "No se pudo completar el registro del User", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
