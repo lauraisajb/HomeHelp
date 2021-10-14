@@ -7,8 +7,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,7 +26,9 @@ public class activity_view_worker extends AppCompatActivity {
     private ImageButton btnClose;
 
     //textos
-    TextView eUserName, eCity, eDescripcion, eJob;
+    TextView eUserName, eCity, eDescripcion, eJob, eFcreacion;
+
+    ImageView eImagen;
 
     //FireBase
     private FirebaseAuth auth;
@@ -44,6 +48,8 @@ public class activity_view_worker extends AppCompatActivity {
         eJob = (TextView) findViewById(R.id.textJob);
         eCity = (TextView) findViewById(R.id.CitySW);
         eDescripcion = (TextView) findViewById(R.id.textDescripcionSW);
+        eFcreacion = (TextView)findViewById(R.id.seeCreacionW);
+        eImagen  = (ImageView)findViewById(R.id.imgUserW);
 
 
         getInfo();
@@ -74,11 +80,20 @@ public class activity_view_worker extends AppCompatActivity {
                                String job = snapshot2.child("Oficio").getValue().toString();
                                String city = snapshot2.child("Ciudad").getValue().toString();
                                String descripcion = snapshot2.child("descripcion").getValue().toString();
+                               String fechCrea = snapshot2.child("FechaCre").getValue().toString();
+                               String imagen = snapshot2.child("imagen").getValue().toString();
 
                                eUserName.setText(userName);
                                eJob.setText(job);
                                eCity.setText(city);
                                eDescripcion.setText(descripcion);
+                               eFcreacion.setText(fechCrea);
+                               Glide.with(activity_view_worker.this)
+                                       .load(imagen)
+                                       .placeholder(R.drawable.common_google_signin_btn_icon_dark)
+                                       .circleCrop()
+                                       .error(R.drawable.common_google_signin_btn_icon_dark_normal)
+                                       .into(eImagen); 
                            }
                         }
 

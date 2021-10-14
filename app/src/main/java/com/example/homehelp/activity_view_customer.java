@@ -24,7 +24,7 @@ public class activity_view_customer extends AppCompatActivity {
     private FirebaseAuth auth;
     private DatabaseReference DB;
     //textView
-    private  TextView eUserName, eCity;
+    private  TextView eUserName, eCity, eFcreacion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +37,12 @@ public class activity_view_customer extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         DB = FirebaseDatabase.getInstance().getReference();
         //button
-        btnClose = (ImageButton) findViewById(R.id.btnCloseC);
+        btnClose = (ImageButton) findViewById(R.id.close);
         btnSearch = (ImageButton) findViewById(R.id.btnSearch);
         //textView
         eUserName = (TextView) findViewById(R.id.textUserName);
         eCity = (TextView) findViewById(R.id.textCityb);
+        eFcreacion = (TextView)findViewById(R.id.TVcreacionC);
 
 
         btnSearch.setOnClickListener(new View.OnClickListener() {
@@ -72,9 +73,11 @@ public class activity_view_customer extends AppCompatActivity {
                 if(snapshot.exists()){
                     String userName = snapshot.child("userName").getValue().toString();
                     String city = snapshot.child("Ciudad").getValue().toString();
+                    String fechCrea = snapshot.child("FechaCre").getValue().toString();
 
                     eUserName.setText(userName);
                     eCity.setText(city);
+                    eFcreacion.setText(fechCrea);
                 }
             }
 

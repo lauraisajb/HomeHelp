@@ -1,7 +1,5 @@
 package com.example.homehelp;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,19 +10,10 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.QuerySnapshot;
-
-import org.jetbrains.annotations.NotNull;
-
-import java.util.ArrayList;
 
 import static java.lang.Integer.parseInt;
 
@@ -38,9 +27,8 @@ public class WorkerList extends AppCompatActivity {
     int calificacion;
 
     //botones
-    ImageButton btnBackWL;
-
-
+    ImageButton btnSearchWL;
+    ImageButton btnHomeWl;
 
     //Db
     private DatabaseReference DB;
@@ -56,7 +44,8 @@ public class WorkerList extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        btnBackWL = (ImageButton)findViewById(R.id.btnBackWL);
+        btnSearchWL = (ImageButton)findViewById(R.id.btnSearchWL);
+        btnHomeWl = (ImageButton)findViewById(R.id.homeWL);
 
         ciudad = getIntent().getExtras().get("city").toString();
         oficio = getIntent().getExtras().get("oficio").toString();
@@ -72,10 +61,18 @@ public class WorkerList extends AppCompatActivity {
         operadoresAdapter = new OperadoresAdapter( options,this, oficio, ciudad);
         recyclerView.setAdapter(operadoresAdapter);
 
-        btnBackWL.setOnClickListener(new View.OnClickListener() {
+
+        btnHomeWl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                startActivity(new Intent( WorkerList.this, activity_view_customer.class));
+                finish();
+            }
+        });
 
+        btnSearchWL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 startActivity(new Intent( WorkerList.this, Search_activity.class));
             }
         });

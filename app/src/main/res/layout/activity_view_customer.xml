@@ -62,7 +62,7 @@
         app:layout_constraintTop_toTopOf="@+id/textUserName" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/TVcreacionC"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="170dp"
@@ -72,6 +72,7 @@
         android:layout_marginRight="10dp"
         android:text="Se unió en septiembre/2021"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.351"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -136,8 +137,11 @@
 
     <ImageView
         android:id="@+id/imageView11"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:scaleType="center"
+        android:stateListAnimator="@null"
+        app:backgroundTint="#FCCA27"
         android:layout_marginStart="320dp"
         android:layout_marginLeft="320dp"
         android:layout_marginTop="30dp"
@@ -150,39 +154,46 @@
 
     <ImageView
         android:id="@+id/imageView12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
+        android:scaleType="center"
+        android:stateListAnimator="@null"
+        app:backgroundTint="#FCCA27"
         app:layout_constraintEnd_toStartOf="@+id/imageView11"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/mail" />
 
     <ImageButton
-        android:id="@+id/btnCloseC"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/leftarrow"
+        android:id="@+id/close"
+        android:layout_width="58dp"
+        android:layout_height="58dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/iconclose"
         android:stateListAnimator="@null"
         app:backgroundTint="#FCCA27"
         app:layout_constraintBottom_toBottomOf="@+id/imageView3"
         app:layout_constraintEnd_toStartOf="@+id/btnSearch"
-        app:layout_constraintHorizontal_bias="0.091"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.027" />
+        app:layout_constraintVertical_bias="0.04" />
 
     <ImageButton
         android:id="@+id/btnSearch"
-        android:layout_width="39dp"
-        android:layout_height="32dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:scaleType="center"
+        android:stateListAnimator="@null"
+        app:backgroundTint="#FCCA27"
         app:layout_constraintBottom_toBottomOf="@+id/imageView3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.62"
+        app:layout_constraintHorizontal_bias="0.601"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.071"
+        app:layout_constraintVertical_bias="0.072"
         app:srcCompat="@drawable/search" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,6 +2,7 @@ package com.example.homehelp;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 
@@ -11,6 +12,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -45,16 +47,21 @@ import com.google.firebase.storage.UploadTask;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.sql.Time;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class SingUp extends AppCompatActivity implements View.OnClickListener {
     //FECHA
     ImageButton btnDate;
     EditText editTextDate;
-    private  int dd, mm, yy;
+    private int dd, mm, yy;
     //CIUDAD
     Spinner comboCity;
     //Usuario
@@ -65,11 +72,10 @@ public class SingUp extends AppCompatActivity implements View.OnClickListener {
     MultiAutoCompleteTextView descripcion;
 
     //referenciar datos de usuario
-    EditText eUserName,eFname, eLname, eEmail, eDir, ePassword, eComfPass, ePhone, descrip;
+    EditText eUserName, eFname, eLname, eEmail, eDir, ePassword, eComfPass, ePhone, descrip, efechNac;
 
     //variables de usuario
-    String userName, fName, lName, email, dir, password, comfPass, phone, descripc, userType, city, ofice, imagen;
-    Date fechNac, fechCrea;
+    String userName, fName, lName, email, dir, password, comfPass, phone, descripc, userType, city, ofice, imagen, fechNac, fechCrea;
 
     //botones
     Button btnRegister, btnBack;
@@ -78,19 +84,16 @@ public class SingUp extends AppCompatActivity implements View.OnClickListener {
     //coneccion
     FirebaseAuth auth;
     DatabaseReference database;
-    StorageReference storageReference;
 
     //Oficio
     String Oficio = "Cliente";
 
     //fotos
-    private static  final  int GALLERY_INTENT =1;
-
-    /*Dialog subirFoto;
-    ImageView imgFotoPerfil;
-    final  int CODIGO_RESPUESTA_GALERIA=3;*/
+    private static final int GALLERY_INTENT = 1;
+    private  StorageReference storage;
 
     Uri uri;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,7 +102,7 @@ public class SingUp extends AppCompatActivity implements View.OnClickListener {
         //coneccion
         auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance().getReference();
-        storageReference = FirebaseStorage.getInstance().getReference();
+        storage = FirebaseStorage.getInstance().getReference();
         //FECHA
         btnDate = (ImageButton) findViewById(R.id.BtnDate);
         editTextDate = (EditText) findViewById(R.id.eDate);
@@ -160,6 +163,7 @@ public class SingUp extends AppCompatActivity implements View.OnClickListener {
         eComfPass = (EditText) findViewById(R.id.eConfirmPassword);
         ePhone = (EditText) findViewById(R.id.ePhono);
         descrip = (EditText) findViewById(R.id.editDescripcion);
+        efechNac = (EditText) findViewById(R.id.eDate);
         //botones
         btnRegister = (Button) findViewById(R.id.btnRegister);
         btnBack = (Button) findViewById(R.id.btnCancel);
@@ -174,6 +178,7 @@ public class SingUp extends AppCompatActivity implements View.OnClickListener {
         });
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
 
@@ -187,6 +192,11 @@ public class SingUp extends AppCompatActivity implements View.OnClickListener {
                 dir = eDir.getText().toString();
                 phone = ePhone.getText().toString();
                 descripc = descrip.getText().toString();
+                //fecha
+                fechNac = efechNac.getText().toString();
+                Date getfechCrea = new Date(System.currentTimeMillis());
+                fechCrea = getfechCrea.toString();
+
                 //combodatos
                 userType = comboUser.getSelectedItem().toString();
                 city = comboCity.getSelectedItem().toString();
@@ -195,6 +205,10 @@ public class SingUp extends AppCompatActivity implements View.OnClickListener {
                 //Validar datos
 
                 //validar que esten llenos los campos
+                if (fechNac.isEmpty()) {
+                    Toast.makeText(SingUp.this, "Debe ingresar su fecha de nacimiento", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 if (userName.isEmpty()) {
                     Toast.makeText(SingUp.this, "Debe asignar un nombre de usuario", Toast.LENGTH_SHORT).show();
                     return;
@@ -247,7 +261,7 @@ public class SingUp extends AppCompatActivity implements View.OnClickListener {
                         return;
                     }
                     //si el tipo de usuario de usuario no es cliente, la variable Oficio cambia al tipo elegido
-                    Oficio =  ofice;
+                    Oficio = ofice;
                 }
 
                 if (city.equals("Ciudad")) {
@@ -259,6 +273,7 @@ public class SingUp extends AppCompatActivity implements View.OnClickListener {
 
             }
         });
+
 
         //subir foto
         btnImgUser.setOnClickListener(new View.OnClickListener() {
@@ -276,42 +291,81 @@ public class SingUp extends AppCompatActivity implements View.OnClickListener {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == GALLERY_INTENT && resultCode== RESULT_OK){
+
+        if (requestCode == GALLERY_INTENT && resultCode == RESULT_OK) {
             Uri uri = data.getData();
 
-            StorageReference  filePath = storageReference.child("fotos").child(uri.getLastPathSegment());
+            StorageReference filePath = storage.child("fotos").child(uri.getLastPathSegment());
+            StorageReference ref = storage.child("fotos");
 
             System.out.println("--------------if--------------------");
+
+
+            ref.putFile(uri).continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                @Override
+                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                    if (!task.isSuccessful()) {
+                        throw task.getException();
+                    }
+                    return ref.getDownloadUrl();
+                }
+            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                @Override
+                public void onComplete(@NonNull Task<Uri> task) {
+                    if (task.isSuccessful()) {
+                        Uri downloadUri = task.getResult();
+                         imagen = downloadUri.toString();
+
+                        Glide.with(SingUp.this)
+                                .load(imagen)
+                                .fitCenter()
+                                .centerCrop()
+                                .into(btnImgUser);
+                        //FriendlyMessage friendlyMessage = new FriendlyMessage(null, mUsername, downloadUri.toString());
+                        //mMessagesDatabaseReference.push().setValue(friendlyMessage);
+                    } else {
+                        Toast.makeText(SingUp.this, "upload failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
+            /*
             filePath.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
 
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    final StorageReference ref = storage.child("fotos");
+                    taskSnapshot = ref.putFile(imagen);
 
                     System.out.println("--------------onSuccess--------------------");
-                    Uri descargarFoto =  taskSnapshot.getStorage().getDownloadUrl().getResult();
+                   // Uri descargarFoto = taskSnapshot.getStorage().child("fotos").getDownloadUrl().getResult();
+                    Task<Uri> descargarFoto = taskSnapshot.getStorage().getDownloadUrl();
                     System.out.println(descargarFoto);
                     System.out.println("--------------descargarFoto--------------------");
 
+
+                    imagen = descargarFoto.toString();
+
                     Glide.with(SingUp.this)
-                        .load(descargarFoto)
-                        .fitCenter()
-                        .centerCrop()
-                        .into(btnImgUser);
+                            .load(descargarFoto)
+                            .fitCenter()
+                            .centerCrop()
+                            .into(btnImgUser);
                     Toast.makeText(SingUp.this, "Foto agregada exitosamente", Toast.LENGTH_LONG).show();
                 }
 
-            });
+            });*/
         }
     }
 
     ///
-    public void  registerUser(){
+    public void registerUser() {
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if( task.isSuccessful()){
+                if (task.isSuccessful()) {
 
-                   // fechNac = (Date) editTextDate.getText();
+                    // fechNac = (Date) editTextDate.getText();
                     Map<String, Object> users = new HashMap<>();
                     users.put("Oficio", Oficio);
 
@@ -323,46 +377,45 @@ public class SingUp extends AppCompatActivity implements View.OnClickListener {
                     map.put("direccion", dir);
                     map.put("phone", phone);
                     map.put("Ciudad", city);
-                    // map.put("imagen", imagen);
-                    //map.put("FechaNac", editTextDate.getText());
-                    //fecha cracion
+                    map.put("FechaNac", fechNac);
+                    map.put("FechaCre", fechCrea);
+                     map.put("imagen", imagen);
 
-                    if(userType.equals("Operador")) {
+                    if (userType.equals("Operador")) {
                         map.put("Tipo", userType);
                         map.put("Oficio", ofice);
                         map.put("descripcion", descripc);
                     }
 
-                    String id=  auth.getCurrentUser().getUid();
+                    String id = auth.getCurrentUser().getUid();
 
                     database.child("Users").child(id).setValue(users).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
-                        public void onComplete(@NonNull   Task<Void> task2) {
-                            if(task2.isSuccessful()){
+                        public void onComplete(@NonNull Task<Void> task2) {
+                            if (task2.isSuccessful()) {
 
                                 database.child(Oficio).child(id).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull @NotNull Task<Void> task3) {
-                                        if(task3.isSuccessful()){
+                                        if (task3.isSuccessful()) {
                                             Toast.makeText(SingUp.this, "registro exitoso", Toast.LENGTH_SHORT).show();
 
-                                            if(userType.equals("Operador")){
+                                            if (userType.equals("Operador")) {
                                                 startActivity(new Intent(SingUp.this, activity_view_worker.class));
                                             }
-                                            if(userType.equals("Cliente")) {
+                                            if (userType.equals("Cliente")) {
                                                 startActivity(new Intent(SingUp.this, activity_view_customer.class));
                                             }
                                         }
                                     }
                                 });
 
-                            }else{
+                            } else {
                                 Toast.makeText(SingUp.this, "No se pudo completar el registro del User", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
-                }
-                else {
+                } else {
                     Toast.makeText(SingUp.this, "no se pudo realizar el registro", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -372,113 +425,32 @@ public class SingUp extends AppCompatActivity implements View.OnClickListener {
     //FECHA
     @Override
     public void onClick(View v) {
-        if (v== btnDate){
-            final Calendar c= Calendar.getInstance();
-
+        if (v == btnDate) {
+            final Calendar c = Calendar.getInstance();
             dd = c.get(Calendar.DAY_OF_MONTH);
             mm = c.get(Calendar.MONTH);
             yy = c.get(Calendar.YEAR);
+            ;
 
             DatePickerDialog datePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
 
-                    editTextDate.setText(dayOfMonth+"/"+(month)+1 +"/"+year);
+                    editTextDate.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
                 }
             }
-            ,dd, mm, yy);
+                    , dd, mm, yy);
             datePickerDialog.show();
         }
 
-    }
 
-    /*
         btnImgUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SubirFoto();
+                //SubirFoto();
             }
         });
 
-        /*
-
     }
 
-    /*
-
-    public void SubirFoto(){
-        subirFoto = new Dialog(SingUp.this, android.R.style.Theme_Material_Dialog);
-        subirFoto.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        subirFoto.setContentView(R.layout.layout_subir_foto);
-
-        imgFotoPerfil = (ImageView)subirFoto.findViewById(R.id.imgFotoPerfil);
-
-        Button btnAgregar = (Button)subirFoto.findViewById(R.id.btnAgregar);
-        Button btnEliminar = (Button)subirFoto.findViewById(R.id.btnEliminar);
-        Button btnCancelar = (Button)subirFoto.findViewById(R.id.btnCancelar);
-
-        btnAgregar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(intent, CODIGO_RESPUESTA_GALERIA);
-            }
-        });
-
-        subirFoto.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-        subirFoto.getWindow().setLayout(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-        subirFoto.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        subirFoto.show();
-    }
-
-
-
-    //validaciones de elecció en galeria
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == RESULT_OK){
-            if(data != null){
-                uri = data.getData();
-                try {
-                    imgFotoPerfil.setImageBitmap(MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri));
-                    UploadTask uploadTask;
-                    final StorageReference refe = storageReference.child("Perfil").child(FirebaseAuth.getInstance().getCurrentUser().getUid()+".jpg" );
-                    uploadTask = refe.putFile(uri);
-                    uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-
-                        @Override
-                        public Task<Uri> then(@NonNull @NotNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                            if (!task.isSuccessful())
-                                throw task.getException();
-                                return refe.getDownloadUrl();
-
-                        }
-                    }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Uri> task) {
-                            if(task.isSuccessful()){
-                                imagen = task.getResult().toString();
-
-                               Map<String, Object> map = new HashMap<>();
-                                    map.put("foto_perfil", task.getResult().toString());
-                                    FirebaseFirestore.getInstance().collection("Users").document(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                            .update(map).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void unused) {
-                                            Toast.makeText(getApplicationContext(), "Imagen Actualizada", Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
-
-
-                            }
-                        }
-                    });
-                }catch (Exception e){
-                    Log.e("Error", ""+e.toString());
-                }
-            }
-        }
-    }
-                  */
 }

@@ -26,7 +26,7 @@ public class see_worker extends AppCompatActivity {
     ImageButton btnBack;
 
     //text
-    TextView eUserName, eCity, eDescripcion, eJob;
+    TextView eUserName, eCity, eDescripcion, eJob, efecha;
 
     //datos
     String oficio, city;
@@ -59,6 +59,7 @@ public class see_worker extends AppCompatActivity {
         eJob = (TextView) findViewById(R.id.JobSW);
         eCity = (TextView) findViewById(R.id.CitySW);
         eDescripcion = (TextView) findViewById(R.id.textDescripcionSW);
+        efecha = (TextView) findViewById(R.id.seeCreacionW);
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,11 +89,13 @@ public class see_worker extends AppCompatActivity {
                                  String job = snapshot2.child("Oficio").getValue().toString();
                                  String city = snapshot2.child("Ciudad").getValue().toString();
                                  String descripcion = snapshot2.child("descripcion").getValue().toString();
+                                 String fecha = snapshot2.child("FechaCre").getValue().toString();
 
                                  eUserName.setText(userName);
                                  eJob.setText(job);
                                  eCity.setText(city);
                                  eDescripcion.setText(descripcion);
+                                 efecha.setText(fecha);
                              }
                          }
 
