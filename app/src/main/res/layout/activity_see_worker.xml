@@ -17,7 +17,7 @@
         app:srcCompat="@drawable/fondoancho" />
 
     <ImageView
-        android:id="@+id/imgUserW"
+        android:id="@+id/imgUserSW"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
@@ -46,7 +46,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imgUserW" />
+        app:layout_constraintTop_toTopOf="@+id/imgUserSW" />
 
     <TextView
         android:id="@+id/JobSW"
@@ -129,35 +129,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/CitySW" />
 
-    <ImageView
-        android:id="@+id/imageView21"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+    <ImageButton
+        android:id="@+id/mensaje"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="24dp"
         android:scaleType="center"
         android:stateListAnimator="@null"
         app:backgroundTint="#FCCA27"
-        android:layout_marginStart="340dp"
-        android:layout_marginLeft="340dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="3dp"
-        android:layout_marginRight="3dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/settings" />
-
-    <ImageView
-        android:id="@+id/imageView22"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:scaleType="center"
-        android:stateListAnimator="@null"
-        app:backgroundTint="#FCCA27"
-        android:layout_marginStart="200dp"
-        android:layout_marginLeft="200dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toStartOf="@+id/imageView21"
-        app:layout_constraintHorizontal_bias="0.865"
+        app:layout_constraintHorizontal_bias="0.911"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/mail" />

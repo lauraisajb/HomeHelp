@@ -9,11 +9,13 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import  com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 
@@ -46,17 +48,18 @@ public class OperadoresAdapter extends FirebaseRecyclerAdapter<Operadores, Opera
 
         getCiudad = model.getCiudad();
         getOficio = model.getOficio();
+
         holder.Username.setText(model.getUserName());
         holder.city.setText(model.getCiudad());
         holder.Oficio.setText(model.getOficio());
 
         //foto de perfil
-        /*Glide.with(holder.img.getContext())
-                .load(model.getSurl())
+        Glide.with(holder.img.getContext())
+                .load(model.getImagen())
                 .placeholder(R.drawable.common_google_signin_btn_icon_dark)
                 .circleCrop()
                 .error(R.drawable.common_google_signin_btn_icon_dark_normal)
-                .into(holder.img);*/
+                .into(holder.img);
 
         holder.setOnClickListener(position);
 
@@ -81,14 +84,17 @@ public class OperadoresAdapter extends FirebaseRecyclerAdapter<Operadores, Opera
         //oficio
         TextView Username, Oficio, city;
 
+
         public myViewHolder(@NonNull View itemView){
             super(itemView);
 
-            // img = (CircleImageView)itemView.findViewById(R.id.img1);
+            img = (CircleImageView)itemView.findViewById(R.id.imgUserL);
             context = itemView.getContext();
             Username = (TextView)itemView.findViewById(R.id.eUsername);
             Oficio = (TextView)itemView.findViewById(R.id.eOficio);
             city = (TextView)itemView.findViewById(R.id.eCity);
+
+
         }
 
         void setOnClickListener(int position){

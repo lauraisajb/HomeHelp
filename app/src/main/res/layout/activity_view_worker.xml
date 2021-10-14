@@ -18,7 +18,7 @@
         app:srcCompat="@drawable/fondoancho" />
 
     <ImageView
-        android:id="@+id/imgUserW"
+        android:id="@+id/imgUserSW"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
@@ -46,7 +46,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imgUserW" />
+        app:layout_constraintTop_toTopOf="@+id/imgUserSW" />
 
     <TextView
         android:id="@+id/textJob"
@@ -146,7 +146,7 @@
         app:srcCompat="@drawable/settings" />
 
     <ImageView
-        android:id="@+id/imageView22"
+        android:id="@+id/mensaje"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:scaleType="center"

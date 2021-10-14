@@ -19,7 +19,7 @@
         app:srcCompat="@drawable/fondomostaza" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/imgUserC"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
@@ -45,7 +45,7 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView4" />
+        app:layout_constraintTop_toTopOf="@+id/imgUserC" />
 
     <TextView
         android:id="@+id/textCityb"

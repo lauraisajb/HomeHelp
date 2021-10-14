@@ -7,8 +7,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -19,6 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 public class activity_view_customer extends AppCompatActivity {
     //botones
     private ImageButton btnClose, btnSearch;
+    ImageView eImagen;
 
     //FireBase
     private FirebaseAuth auth;
@@ -43,6 +46,7 @@ public class activity_view_customer extends AppCompatActivity {
         eUserName = (TextView) findViewById(R.id.textUserName);
         eCity = (TextView) findViewById(R.id.textCityb);
         eFcreacion = (TextView)findViewById(R.id.TVcreacionC);
+        eImagen  = (ImageView)findViewById(R.id.imgUserC);
 
 
         btnSearch.setOnClickListener(new View.OnClickListener() {
@@ -74,10 +78,17 @@ public class activity_view_customer extends AppCompatActivity {
                     String userName = snapshot.child("userName").getValue().toString();
                     String city = snapshot.child("Ciudad").getValue().toString();
                     String fechCrea = snapshot.child("FechaCre").getValue().toString();
+                    String imagen = snapshot.child("imagen").getValue().toString();
 
                     eUserName.setText(userName);
                     eCity.setText(city);
                     eFcreacion.setText(fechCrea);
+                    Glide.with(activity_view_customer.this)
+                            .load(imagen)
+                            .placeholder(R.drawable.common_google_signin_btn_icon_dark)
+                            .circleCrop()
+                            .error(R.drawable.common_google_signin_btn_icon_dark_normal)
+                            .into(eImagen);
                 }
             }
 

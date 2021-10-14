@@ -295,8 +295,8 @@ public class SingUp extends AppCompatActivity implements View.OnClickListener {
         if (requestCode == GALLERY_INTENT && resultCode == RESULT_OK) {
             Uri uri = data.getData();
 
-            StorageReference filePath = storage.child("fotos").child(uri.getLastPathSegment());
-            StorageReference ref = storage.child("fotos");
+            StorageReference ref = storage.child("fotos").child(uri.getLastPathSegment());
+            //StorageReference ref = storage.child("fotos");
 
             System.out.println("--------------if--------------------");
 

@@ -49,7 +49,7 @@ public class activity_view_worker extends AppCompatActivity {
         eCity = (TextView) findViewById(R.id.CitySW);
         eDescripcion = (TextView) findViewById(R.id.textDescripcionSW);
         eFcreacion = (TextView)findViewById(R.id.seeCreacionW);
-        eImagen  = (ImageView)findViewById(R.id.imgUserW);
+        eImagen  = (ImageView)findViewById(R.id.imgUserSW);
 
 
         getInfo();
