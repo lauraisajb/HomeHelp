@@ -7,8 +7,9 @@
 
     <ImageView
         android:id="@+id/imageView19"
-        android:layout_width="wrap_content"
-        android:layout_height="139dp"
+        android:layout_width="411dp"
+        android:layout_height="160dp"
+        android:scaleType="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -84,14 +85,13 @@
         android:id="@+id/seeCreacionW"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="200dp"
         android:layout_marginLeft="200dp"
-        android:layout_marginTop="428dp"
+        android:layout_marginTop="424dp"
         android:layout_marginEnd="3dp"
         android:layout_marginRight="3dp"
         android:text="Se unió en Septiembre/2021"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.604"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -127,8 +127,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/CitySW" />
 
-    <ImageView
-        android:id="@+id/imageView21"
+    <ImageButton
+        android:id="@+id/btnConfigO"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:scaleType="center"
@@ -144,20 +144,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/settings" />
-
-    <ImageView
-        android:id="@+id/mensaje"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:scaleType="center"
-        android:stateListAnimator="@null"
-        app:backgroundTint="#FCCA27"
-        android:layout_marginTop="32dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.765"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/mail" />
 
     <ImageView
         android:id="@+id/imageView24"

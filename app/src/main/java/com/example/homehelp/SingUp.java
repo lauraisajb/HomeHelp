@@ -4,57 +4,40 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
 
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.MultiAutoCompleteTextView;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.sql.Time;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.Period;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 public class SingUp extends AppCompatActivity implements View.OnClickListener {
@@ -105,18 +88,18 @@ public class SingUp extends AppCompatActivity implements View.OnClickListener {
         storage = FirebaseStorage.getInstance().getReference();
         //FECHA
         btnDate = (ImageButton) findViewById(R.id.BtnDate);
-        editTextDate = (EditText) findViewById(R.id.eDate);
+        editTextDate = (EditText) findViewById(R.id.eDateE);
         btnDate.setOnClickListener(this);
 
         //CIUDAD
-        comboCity = (Spinner) findViewById(R.id.spinnerCiudad);
+        comboCity = (Spinner) findViewById(R.id.spinnerCiudadE);
 
         ArrayAdapter<CharSequence> adapterCity = ArrayAdapter.createFromResource(this,
                 R.array.Ciudad, android.R.layout.simple_spinner_item);
         comboCity.setAdapter(adapterCity);
 
         //Usuario
-        comboUser = (Spinner) findViewById(R.id.spinnerUser);
+        comboUser = (Spinner) findViewById(R.id.spinnerUserE);
 
         ArrayAdapter<CharSequence> adapterUser = ArrayAdapter.createFromResource(this,
                 R.array.Usuario, android.R.layout.simple_spinner_item);
@@ -154,20 +137,20 @@ public class SingUp extends AppCompatActivity implements View.OnClickListener {
         });
 
         //referenciar usuarios
-        eUserName = (EditText) findViewById(R.id.eUserName);
-        eFname = (EditText) findViewById(R.id.eFname);
-        eLname = (EditText) findViewById(R.id.eLname);
-        eEmail = (EditText) findViewById(R.id.eEmail);
-        eDir = (EditText) findViewById(R.id.eDir);
-        ePassword = (EditText) findViewById(R.id.ePassword);
+        eUserName = (EditText) findViewById(R.id.eUserNameE);
+        eFname = (EditText) findViewById(R.id.eFnameE);
+        eLname = (EditText) findViewById(R.id.eLnameE);
+        eEmail = (EditText) findViewById(R.id.eEmailE);
+        eDir = (EditText) findViewById(R.id.eDirE);
+        ePassword = (EditText) findViewById(R.id.ePasswordE);
         eComfPass = (EditText) findViewById(R.id.eConfirmPassword);
-        ePhone = (EditText) findViewById(R.id.ePhono);
+        ePhone = (EditText) findViewById(R.id.ePhonoE);
         descrip = (EditText) findViewById(R.id.editDescripcion);
-        efechNac = (EditText) findViewById(R.id.eDate);
+        efechNac = (EditText) findViewById(R.id.eDateE);
         //botones
-        btnRegister = (Button) findViewById(R.id.btnRegister);
-        btnBack = (Button) findViewById(R.id.btnCancel);
-        btnImgUser = (ImageButton) findViewById(R.id.btnImgUser);
+        btnRegister = (Button) findViewById(R.id.btnActualizar);
+        btnBack = (Button) findViewById(R.id.btnCancelE);
+        btnImgUser = (ImageButton) findViewById(R.id.btnImgUserE);
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override

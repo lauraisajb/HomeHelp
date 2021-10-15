@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".see_worker"></activity>
+        <activity android:name=".config"></activity>
+        <activity android:name=".see_worker" />
         <activity android:name=".WorkerList" />
         <activity android:name=".Search_activity" />
         <activity android:name=".activity_view_worker" />

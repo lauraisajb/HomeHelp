@@ -20,8 +20,8 @@
 
     <ImageView
         android:id="@+id/imgUserC"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
         android:layout_marginStart="50dp"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="370dp"
@@ -65,14 +65,13 @@
         android:id="@+id/TVcreacionC"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="170dp"
         android:layout_marginLeft="170dp"
-        android:layout_marginTop="660dp"
+        android:layout_marginTop="656dp"
         android:layout_marginEnd="10dp"
         android:layout_marginRight="10dp"
         android:text="Se unió en septiembre/2021"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.351"
+        app:layout_constraintHorizontal_bias="0.513"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -135,8 +134,8 @@
         app:layout_constraintTop_toTopOf="@+id/textCityb"
         app:srcCompat="@drawable/starvacia" />
 
-    <ImageView
-        android:id="@+id/imageView11"
+    <ImageButton
+        android:id="@+id/btnConfigC"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:scaleType="center"
@@ -151,20 +150,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imageView3"
         app:srcCompat="@drawable/settings" />
-
-    <ImageView
-        android:id="@+id/imageView12"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:scaleType="center"
-        android:stateListAnimator="@null"
-        app:backgroundTint="#FCCA27"
-        app:layout_constraintEnd_toStartOf="@+id/imageView11"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/mail" />
 
     <ImageButton
         android:id="@+id/close"
@@ -189,8 +174,8 @@
         android:stateListAnimator="@null"
         app:backgroundTint="#FCCA27"
         app:layout_constraintBottom_toBottomOf="@+id/imageView3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.601"
+        app:layout_constraintEnd_toStartOf="@+id/btnConfigC"
+        app:layout_constraintHorizontal_bias="0.888"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.072"

@@ -77,7 +77,7 @@ public class see_worker extends AppCompatActivity {
 
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_VIEW);
-                String uri = "whatsapp://send?phone="+telefono+"&text="+mensaje;
+                String uri = "whatsapp://send?phone=57"+telefono+"&text="+mensaje;
                 sendIntent.setData(Uri.parse(uri));
                 startActivity(sendIntent);
             }

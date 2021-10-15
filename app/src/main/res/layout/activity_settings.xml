@@ -73,7 +73,7 @@
             android:layout_height="63dp"
             android:layout_marginTop="20dp"
             android:ems="15"
-            android:hint="Ingrese el Nombre de Usuario"
+            android:hint="Nombre de Usuario"
             android:inputType="textPersonName"
             android:textColor="#535353"
             android:textSize="18sp"
@@ -84,14 +84,14 @@
 
         <ScrollView
             android:id="@+id/scrollView2"
-            android:layout_width="384dp"
-            android:layout_height="396dp"
+            android:layout_width="378dp"
+            android:layout_height="400dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.444"
+            app:layout_constraintHorizontal_bias="0.363"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView"
-            app:layout_constraintVertical_bias="0.614">
+            app:layout_constraintVertical_bias="0.642">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -140,33 +140,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/editTextNumber" />
 
-                <EditText
-                    android:id="@+id/eDateE"
-                    android:layout_width="300dp"
-                    android:layout_height="63dp"
-                    android:layout_marginTop="28dp"
-                    android:ems="15"
-                    android:hint="Ingrese su Fecha de Nacimiento"
-                    android:inputType="textPersonName"
-                    android:textColor="#535353"
-                    android:textSize="18sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/editTextNumber" />
 
-                <ImageButton
-                    android:id="@+id/BtnDate"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginLeft="300dp"
-                    android:layout_marginTop="-60dp"
-                    android:stateListAnimator="@null"
-                    android:textColor="#535353"
-                    app:backgroundTint="#FFFFFF"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/editTextNumber"
-                    app:srcCompat="@drawable/calendar" />
 
                 <EditText
                     android:id="@+id/eCCE"
@@ -174,6 +148,7 @@
                     android:layout_height="63dp"
                     android:layout_marginTop="28dp"
                     android:ems="15"
+                    android:enabled="false"
                     android:hint="Ingrese C.C "
                     android:inputType="number"
                     android:textColor="#535353"
@@ -182,18 +157,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/editTextNumber" />
 
-                <EditText
-                    android:id="@+id/eEmailE"
-                    android:layout_width="365dp"
-                    android:layout_height="63dp"
-                    android:layout_marginTop="28dp"
-                    android:ems="15"
-                    android:hint="Ingrese su Correo"
-                    android:inputType="textEmailAddress"
-                    android:textColor="#535353"
-                    android:textSize="18sp"
-                    tools:layout_editor_absoluteX="155dp"
-                    tools:layout_editor_absoluteY="177dp" />
 
                 <Spinner
                     android:id="@+id/spinnerCiudadE"
@@ -236,31 +199,6 @@
                     app:layout_constraintHorizontal_bias="0.456"
                     app:layout_constraintStart_toStartOf="parent" />
 
-                <EditText
-                    android:id="@+id/eConfirmPassword"
-                    android:layout_width="365dp"
-                    android:layout_height="63dp"
-                    android:layout_marginTop="28dp"
-                    android:ems="15"
-                    android:hint="Confirme su Contraseña "
-                    android:inputType="textPassword"
-                    android:textColor="#535353"
-                    android:textSize="18sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.456"
-                    app:layout_constraintStart_toStartOf="parent" />
-
-                <Spinner
-                    android:id="@+id/spinnerUserE"
-                    android:layout_width="300dp"
-                    android:layout_height="63dp"
-                    android:layout_marginTop="28dp"
-                    android:ems="15"
-                    android:hint="Usuario"
-                    android:textColor="#535353"
-                    android:textSize="18sp"
-                    tools:layout_editor_absoluteX="155dp"
-                    tools:layout_editor_absoluteY="177dp" />
 
                 <Spinner
                     android:id="@+id/spinnerOficio"
@@ -268,6 +206,7 @@
                     android:layout_height="63dp"
                     android:layout_marginTop="28dp"
                     android:ems="15"
+                    android:enabled="false"
                     android:hint="Oficio"
                     android:textColor="#535353"
                     android:textSize="18sp"
@@ -293,36 +232,35 @@
 
         </ScrollView>
 
-
         <Button
             android:id="@+id/btnCancelE"
             android:layout_width="120dp"
             android:layout_height="50dp"
-            android:layout_marginEnd="132dp"
-            android:layout_marginRight="132dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginTop="560dp"
             android:background="#EF0505"
             android:text="Cancelar"
             android:textColor="#FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btnActualizar"
-            app:layout_constraintHorizontal_bias="0.695"
+            app:layout_constraintHorizontal_bias="0.109"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
+            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            app:layout_constraintVertical_bias="0.111" />
 
         <Button
             android:id="@+id/btnActualizar"
             android:layout_width="120dp"
             android:layout_height="50dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginBottom="12dp"
+            android:layout_marginTop="552dp"
             android:background="#1A69CA"
-            android:text="Registrar"
+            android:text="Actualizar"
             android:textColor="#FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
+            app:layout_constraintHorizontal_bias="0.945"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            app:layout_constraintVertical_bias="0.384" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

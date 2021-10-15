@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         eCorreo = (EditText) findViewById(R.id.eCorreo);
-        ePassword = (EditText) findViewById(R.id.ePassword);
+        ePassword = (EditText) findViewById(R.id.ePasswordE);
         eLogin = (Button) findViewById(R.id.btnLogin);
 
         //firebase

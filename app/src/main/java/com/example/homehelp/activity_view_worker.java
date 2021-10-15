@@ -30,6 +30,8 @@ public class activity_view_worker extends AppCompatActivity {
 
     ImageView eImagen;
 
+    String id, oficio;
+
     //FireBase
     private FirebaseAuth auth;
     private DatabaseReference DB;
@@ -43,6 +45,7 @@ public class activity_view_worker extends AppCompatActivity {
         DB = FirebaseDatabase.getInstance().getReference();
         //button
         btnClose = (ImageButton) findViewById(R.id.btnCloseW);
+
         //textView
         eUserName = (TextView) findViewById(R.id.textName);
         eJob = (TextView) findViewById(R.id.textJob);
@@ -66,7 +69,7 @@ public class activity_view_worker extends AppCompatActivity {
     }
 
     private void getInfo(){
-        String id = auth.getCurrentUser().getUid();
+         id = auth.getCurrentUser().getUid();
         DB.child("Users").child(id).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull  DataSnapshot snapshot) {
@@ -82,6 +85,8 @@ public class activity_view_worker extends AppCompatActivity {
                                String descripcion = snapshot2.child("descripcion").getValue().toString();
                                String fechCrea = snapshot2.child("FechaCre").getValue().toString();
                                String imagen = snapshot2.child("imagen").getValue().toString();
+
+                               oficio = job;
 
                                eUserName.setText(userName);
                                eJob.setText(job);

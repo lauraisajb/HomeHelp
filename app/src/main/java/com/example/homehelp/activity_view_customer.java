@@ -29,6 +29,8 @@ public class activity_view_customer extends AppCompatActivity {
     //textView
     private  TextView eUserName, eCity, eFcreacion;
 
+    String id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +51,7 @@ public class activity_view_customer extends AppCompatActivity {
         eImagen  = (ImageView)findViewById(R.id.imgUserC);
 
 
+
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,11 +69,13 @@ public class activity_view_customer extends AppCompatActivity {
             }
         });
 
+
+
         getInfo();
     }
 
     private void getInfo(){
-        String id = auth.getCurrentUser().getUid();
+         id = auth.getCurrentUser().getUid();
         DB.child("Cliente").child(id).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
