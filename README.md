@@ -29,7 +29,7 @@
 
 ## Introduccion
 
-Home Help es un aplicativo creado con el fin de facilitar la busqueda de especialistas en areas enfocadas a las reparacipones del hogar, ya sean pintores, fontaneros, electricistas, etc.
+Home Help es un aplicativocreado con el fin de facilitar la búsqueda de especialistas en áreas enfocadas a las reparaciones del hogar, ya sean pintores, fontaneros, electricistas, etc.
 
 **Disponible para Android.** 
 <p align="center">
