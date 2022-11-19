@@ -65,5 +65,6 @@ Para el desarrollo de este aplicativo se usó el IDE de android studio, programa
 
  [<img src="https://avatars.githubusercontent.com/u/70853111?v=4" width="100px;"/><br /><sub><b>Andersson Cordoba</b></sub>](https://github.com/andersson980114)<br /> 
  [<img src="https://avatars.githubusercontent.com/u/33579122?v=4" width="100px;"/><br /><sub><b>Laura Jimenez</b></sub>](https://github.com/totoro1298)<br />
+ [<img src="https://avatars.githubusercontent.com/u/37989077?v=4" width="100px;"/><br /><sub><b>Diego Toro</b></sub>](https://github.com/Dtorofl)<br />
 
  
